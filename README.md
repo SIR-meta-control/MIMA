@@ -215,3 +215,20 @@ rosbag play $WS/bags/test.bag
 ```
 
 ---
+
+## 5. License
+
+**Original work** in this repository (the metamorphous-robotics research code and assets authored for this project, excluding vendored third-party trees listed below) is licensed under the **GNU General Public License v3.0**. The full license text is in [`LICENSE.md`](LICENSE.md).
+
+**Third-party and upstream components** keep their own terms:
+
+| Location                       | License / reference                                                                                                                                                                                   |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/point_lio_crimson/`       | GNU GPL v2 — [`src/point_lio_crimson/LICENSE`](src/point_lio_crimson/LICENSE); nested `include/IKFoM/` — [`src/point_lio_crimson/include/IKFoM/LICENSE`](src/point_lio_crimson/include/IKFoM/LICENSE) |
+| `src/third_party/libb64/`      | [`src/third_party/libb64/LICENSE.md`](src/third_party/libb64/LICENSE.md)                                                                                                                              |
+| `src/third_party/websocketpp/` | Vendored [WebSocket++](https://github.com/zaphoyd/websocketpp) (BSD 3-Clause; see upstream `COPYING` in that repository)                                                                              |
+| `MLLM/`                        | Per-subtree — e.g. [`MLLM/lmdeploy/LICENSE`](MLLM/lmdeploy/LICENSE), [`MLLM/internvl_chat_llava/LICENSE`](MLLM/internvl_chat_llava/LICENSE)                                                           |
+
+When you redistribute or combine binaries, you must comply with **all** applicable licenses (including GPL obligations for GPL-covered parts).
+
+---
