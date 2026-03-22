@@ -1,4 +1,4 @@
-This directory contains ROS 1 (Catkin) packages and optional components used in the work titled **Metamorphous adaptability in robotic systems through intelligent structural evolvement**.
+This directory contains ROS 1 (Catkin) packages and MLLM used in the work titled **Metamorphous adaptability in robotic systems through intelligent structural evolvement**.
 
 ### Components
 
