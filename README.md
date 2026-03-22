@@ -1,5 +1,13 @@
 This directory contains ROS 1 (Catkin) packages and MLLM used in the work titled **Metamorphous adaptability in robotic systems through intelligent structural evolvement**.
 
+<div align="center">
+  <div>
+    <img src="figure/MIMA.png" width=75%>
+  </div>
+</div>
+<font color=#a0a0a0 size=2>The Multimodal Intelligent Metamorphosis Architecture (MIMA) for guiding robot metamorphosis to adapt to the environment. a, MIMA processes both cognition of the environment and tasks (perception space) and of a robot structure (metamorphosis space) and establishes the mapping between cognitive spaces through multiple neural-network models. It consists of b, multimodal data inputs block, c, MLLM inference block, and d, geometrical inference block for metamorphosis. The MIMA generates the topologies and optimizes the metamorphosis configuration states.
+  </font>
+
 ### Components
 
 | Component                    | Description                                      |
