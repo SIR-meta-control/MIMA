@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <param name="/crimson/group_yaml_path" value="$(find crimson_control)/config/group.yaml"/>
+    <param name="/crimson/omni_yaml_path" value="$(find crimson_control)/config/motion/omni.yaml"/>
+    <param name="/crimson/quad_yaml_path" value="$(find crimson_control)/config/motion/quad.yaml"/>
+    <param name="/crimson/trans_yaml_path" value="$(find crimson_control)/config/trans/trans.yaml"/>
+    <param name="/crimson/group_yaml_path" value="$(find crimson_control)/config/group.yaml"/>
+    <node pkg="crimson_control" type="crimson_control_node" name="crimson_control_node" output="screen" respawn="false" />
+</launch>

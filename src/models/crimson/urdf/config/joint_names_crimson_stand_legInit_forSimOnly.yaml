@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'frameJoint2', 'frameJoint3', 'frameJoint4', 'frameJoint5', 'frameJoint6', 'frameJoint7', 'frameJoint8', 'leg1Joint1', 'leg1Joint2', 'leg1Joint3', 'leg1Joint4', 'leg3Joint1', 'leg3Joint2', 'leg3Joint3', 'leg3Joint4', 'leg2Joint1', 'leg2Joint2', 'leg2Joint3', 'leg2Joint4', 'leg0Joint1', 'leg0Joint2', 'leg0Joint3', 'leg0Joint4', ]

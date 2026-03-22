@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Start the Graph Modeler Service Node -->
+    <node name="graph_modeler_node" pkg="graph_modeler" type="graph_mod_srv.py" output="screen">
+    </node>
+</launch>
+

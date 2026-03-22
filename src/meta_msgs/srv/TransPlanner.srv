@@ -1,0 +1,4 @@
+float32[] target
+uint8 steps
+---
+std_msgs/Float32MultiArray trajectory

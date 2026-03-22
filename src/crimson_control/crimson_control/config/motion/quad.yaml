@@ -1,0 +1,92 @@
+leg_num: 4
+leg_joint_num: 12
+h: 52
+start_id: 6
+waist_param: [224.5, 158, 73.64, 173.04]
+leg_length: [74.96, 158.28, 157.34]
+leg_offset: [180, 158, 248, 180, 158, 248, 180, 158, 248, 180, 158, 248]
+
+w: 80
+motion: turn
+direct: right
+stride: 100
+height: 400
+theta: 30
+
+step_time: 150
+
+gecko_x: 0
+gecko_y: 0
+gecko_z: 0
+
+narrow_decrease:
+  stride: 0.3
+  w: 0.1
+  h: 0.3
+
+local_pos:
+  gecko:
+    narrow:
+      up: [0, 35, 310, 1]            # 0 0 0 0
+      standard: [0, 200, 170, 1]     # 0 0 0 1
+      down: [-1, -1, -1, 1]
+    normal:
+      up: [35, 0, 310, 1]            # 0 0 1 0
+      standard: [200, 0, 170, 1]     # 0 0 1 1
+      down: [-1, -1, -1, 1]
+    extend:
+      up: [-1, -1, -1, 1]
+      standard: [-1, -1, -1, 1]
+      down: [-1, -1, -1, 1]
+  spider:
+    narrow:
+      up: [25, 25, 310, 1]           # 1 0 0 0
+      standard: [141, 141, 170, 1]   # 1 0 0 1
+      down: [160, 160, 220, 1]       # 1 0 0 2
+    normal:
+      up: [35, 0, 310, 1]            # 1 0 1 0
+      standard: [200, 0, 170, 1]     # 1 0 1 1
+      down: [226, 0, 220, 1]         # 1 0 1 2
+    extend:
+      up: [25, -25, 310, 1]          # 1 0 2 0
+      standard: [141, -141, 170, 1]  # 1 0 2 1
+      down: [160, -160, 220, 1]      # 1 0 2 2
+  stick:
+    narrow:
+      up: [9, -34, 310, 1]           # 2 0 0 0
+      standard: [52, -193, 170, 1]   # 2 0 0 1
+      down: [59, -218, 220, 1]       # 2 0 0 2
+    normal:
+      up: [35, 0, 310, 1]            # 2 0 1 0
+      standard: [200, 0, 170, 1]     # 2 0 1 1
+      down: [226, 0, 220, 1]         # 2 0 1 2
+    extend:
+      up: [-1, -1, -1, 1]
+      standard: [-1, -1, -1, 1]
+      down: [-1, -1, -1, 1]
+  dog:
+    narrow:
+      up: [-1, -1, -1, 1]
+      standard: [-1, -1, -1, 1]
+      down: [-1, -1, -1, 1]
+    normal:
+      up: [366, -133, -25, 1]        # 3 0 1 0
+      standard: [310, -96, -130, 1]  # 3 0 1 1
+      down: [-1, -1, -1, 1]
+    extend:
+      up: [-1, -1, -1, 1]
+      standard: [-1, -1, -1, 1]
+      down: [-1, -1, -1, 1]
+  packup:
+    narrow:
+      up: [-1, -1, -1, 1]
+      standard: [-1, -1, -1, 1]
+      down: [-1, -1, -1, 1]
+    normal:
+      up: [-1, -1, -1, 1]
+      standard: [-1, -1, -1, 1]
+      down: [-1, -1, -1, 1]
+    extend:
+      up: [-1, -1, -1, 1]
+      standard: [-1, -1, -1, 1]
+      down: [-1, -1, -1, 1]

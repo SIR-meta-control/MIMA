@@ -1,0 +1,4 @@
+port: /dev/ttyCH341USB1
+baudrate: 115200
+timeout: 100
+looprate: 50

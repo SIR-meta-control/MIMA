@@ -1,0 +1,222 @@
+<mujoco model="crimson_stand_legInit_forSimOnly">
+  <compiler angle="radian" meshdir="./meshes/"/>
+  
+  <visual>
+        <headlight ambient="0.5 0.5 0.5"/>
+  </visual>
+  <option timestep="0.0005" integrator="implicitfast" gravity="0 0 -9.81">
+        <flag contact="enable" energy="enable" gravity="enable"/>
+  </option>
+  
+  <asset>
+    <mesh name="frameBasLink" file="frameBasLink.STL"/>
+    <mesh name="frameLink2" file="frameLink2.STL"/>
+    <mesh name="frameLink3" file="frameLink3.STL"/>
+    <mesh name="frameLink4" file="frameLink4.STL"/>
+    <mesh name="frameLink5" file="frameLink5.STL"/>
+    <mesh name="frameLink6" file="frameLink6.STL"/>
+    <mesh name="frameLink7" file="frameLink7.STL"/>
+    <mesh name="frameLink8" file="frameLink8.STL"/>
+    <mesh name="leg1Link1" file="leg1Link1.STL"/>
+    <mesh name="leg1Link2" file="leg1Link2.STL"/>
+    <mesh name="leg1Link3" file="leg1Link3.STL"/>
+    <mesh name="leg3Link1" file="leg3Link1.STL"/>
+    <mesh name="leg3Link2" file="leg3Link2.STL"/>
+    <mesh name="leg3Link3" file="leg3Link3.STL"/>
+    <mesh name="leg2Link1" file="leg2Link1.STL"/>
+    <mesh name="leg2Link2" file="leg2Link2.STL"/>
+    <mesh name="leg2Link3" file="leg2Link3.STL"/>
+    <mesh name="leg0Link1" file="leg0Link1.STL"/>
+    <mesh name="leg0Link2" file="leg0Link2.STL"/>
+    <mesh name="leg0Link3" file="leg0Link3.STL"/>
+  </asset>
+  
+  <contact>
+    <exclude body1="trunk" body2="frameLink2"/>
+    <exclude body1="trunk" body2="frameLink8"/>■
+  </contact>
+  
+<worldbody>
+  <body name="trunk" pos="0 0 0" quat="1 0 0 0">
+    <freejoint name="root"/>
+    <inertial pos="0.0336344 0.0576079 0.0596913" mass="0.5" diaginertia="0.0001 0.0001 0.0001"/>
+    <site name="NodeSite1" pos="0.034 0.0576 0.0570" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+    <geom name="frameBasLink" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameBasLink"/>
+    <geom type="mesh" rgba="1 1 1 1" mesh="frameBasLink"/>
+    <site name="DimSite0" pos="0.135 -0.025 -0.075" rgba="1 0 0 1" type="sphere" size="0.01"/>
+    <site name="DimSite1" pos="0.135 -0.025 0.105" rgba="1 0 0 1" type="sphere" size="0.01"/>
+    <site name="DimSite2" pos="0.135 0.105 0.105" rgba="1 1 0.04 1" type="sphere" size="0.01"/>
+    <body name="frameLink2" pos="0 0.079 -0.05245" quat="0.499998 0.5 0.500002 0.5">
+      <inertial pos="0.0336344 0.0576079 0.0596913" quat="0.646457 -0.249757 -0.215756 0.687869" mass="0.5" diaginertia="0.0001 0.0001 0.0001"/>
+      <site name="NodeSite2" pos="0.034 0.0576 0.0570" quat="-0.5 0.5 0.5 0.5" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+      <joint name="frameJoint2" pos="0 0 0" axis="0 0 1"/>
+      <geom name="frameLink2" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameLink2"/>
+      <geom type="mesh" rgba="1 1 1 1" mesh="frameLink2"/>
+      <site name="DimSite3" pos="-0.04 0.150 0.120" rgba="0 1 0 1" type="sphere" size="0.01"/>
+      <site name="DimSite4" pos="0.11 0.150 0.120" rgba="0 1 0 1" type="sphere" size="0.01"/>
+      <site name="DimSite5" pos="0.11 -0.025 0.120" rgba="0 1 0 1" type="sphere" size="0.01"/>
+      <body name="frameLink3" pos="0.079 0.05245 0" quat="-0.500004 0.499998 -0.500002 -0.499996">
+        <inertial pos="0.11225 -3.8077e-08 -0.00068181" quat="0.500005 0.500005 0.499995 0.499995" mass="0.3" diaginertia="0.0001 0.0001 0.0001"/>
+        <site name="NodeSite3" pos="0.112 0 0" quat="0 0 0 1" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+        <joint name="frameJoint3" pos="0 0 0" axis="0 0 1"/>
+        <geom name="frameLink3" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameLink3"/>
+        <geom type="mesh" rgba="1 1 1 1" mesh="frameLink3"/>
+        <site name="DimSite_leg_16" pos="0.052 -0.073442 0" rgba="0 0 1 1" type="sphere" size="0.01"/>
+        <body name="frameLink4" pos="0.2245 0 0">
+          <inertial pos="0.1342 -0.002438 0.0021761" quat="0.00940962 0.710807 -0.0103741 0.703248" mass="0.5" diaginertia="0.0001 0.0001 0.0001"/>
+          <site name="NodeSite4" pos="0.1342 0 0" quat="0 0 0 1" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+          <joint name="frameJoint4" pos="0 0 0" axis="0 0 1"/>
+          <geom name="frameLink4" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameLink4"/>
+          <geom type="mesh" rgba="1 1 1 1" mesh="frameLink4"/>
+          <site name="DimSite10" pos="0 0 0.0625" rgba="0 1 0 1" type="sphere" size="0.01"/>
+          <site name="DimSite20" pos="0 -0.06628 0.0625" rgba="1 1 0.04 1" type="sphere" size="0.01"/>
+          <site name="DimSite11" pos="0 0 -0.0625" rgba="0 1 0 1" type="sphere" size="0.01"/>
+          <site name="DimSite_leg_15" pos="0.17336 -0.073442 0" rgba="0 0 1 1" type="sphere" size="0.01"/>
+          <body name="frameLink5" pos="0.2245 0 0" quat="0.707105 0 0 0.707108">
+            <inertial pos="0.041026 -0.058567 0.020014" quat="0.38878 0.598981 -0.37038 0.594046" mass="0.5" diaginertia="0.0001 0.0001 0.0001"/>
+            <site name="NodeSite5" pos="0.04 -0.059 0.02" quat="0.707 0 0 0.707" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+            <joint name="frameJoint5" pos="0 0 0" axis="0 0 1"/>
+            <geom name="frameLink5" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameLink5"/>
+            <geom type="mesh" rgba="1 1 1 1" mesh="frameLink5"/>
+            <site name="DimSite8" pos="-0.04 -0.125 0.105" rgba="0 1 0 1" type="sphere" size="0.01"/>
+            <site name="DimSite18" pos="0.055 -0.138 0.105" rgba="1 1 0.04 1" type="sphere" size="0.01"/>
+            <site name="DimSite9" pos="-0.04 -0.125 -0.075" rgba="0 1 0 1" type="sphere" size="0.01"/>
+            <body name="frameLink6" pos="0.079 0 -0.05245" quat="0.707105 -0.707108 0 0">
+              <inertial pos="0.033709 -0.057893 -0.060249" quat="0.689226 0.219871 0.252459 0.642564" mass="0.5" diaginertia="0.0001 0.0001 0.0001"/>
+              <site name="NodeSite6" pos="0.0337 -0.0579 -0.06" quat="0.5 0.5 -0.5 0.5" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+              <joint name="frameJoint6" pos="0 0 0" axis="0 0 -1"/>
+              <geom name="frameLink6" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameLink6"/>
+              <geom type="mesh" rgba="1 1 1 1" mesh="frameLink6"/>
+              <site name="DimSite6" pos="0.115 0.025 -0.13" rgba="1 0 0 1" type="sphere" size="0.01"/>
+              <site name="DimSite7" pos="0.115 -0.155 -0.13" rgba="1 0 0 1" type="sphere" size="0.01"/>
+              <body name="frameLink7" pos="0.079 -0.05245 0" quat="-0.500004 -0.499998 0.500002 -0.499996">
+                <inertial pos="0.14739 6.1669e-06 -0.00046903" quat="0.497919 0.502437 0.502059 0.497565" mass="0.3" diaginertia="0.0001 0.0001 0.0001"/>
+                <site name="NodeSite7" pos="0.147 0 0" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+                <joint name="frameJoint7" pos="0 0 0" axis="0 0 1"/>
+                <geom name="frameLink7" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameLink7"/>
+                <geom type="mesh" rgba="1 1 1 1" mesh="frameLink7"/>
+                <site name="DimSite_leg_17" pos="0.052 -0.073442 0" rgba="0 0 1 1" type="sphere" size="0.01"/>
+                <body name="frameLink8" pos="0.2245 0 0">
+                  <inertial pos="0.11936 -0.0028798 -5.2537e-05" quat="0.011588 0.70681 -0.0121484 0.707204" mass="0.5" diaginertia="0.0001 0.0001 0.0001"/>
+                  <site name="NodeSite8" pos="0.120 -0.003 0" rgba="0.76 0.64 0.35 1" type="sphere" size="0.01"/>
+                  <joint name="frameJoint8" pos="0 0 0" axis="0 0 1"/>
+                  <geom name="frameLink8" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="frameLink8"/>
+                  <geom type="mesh" rgba="1 1 1 1" mesh="frameLink8"/>
+                  <site name="DimSite12" pos="0 0 0.0625" rgba="1 0 0 1" type="sphere" size="0.01"/>
+                  <site name="DimSite19" pos="0 -0.06628 0.0625" rgba="1 1 0.04 1" type="sphere" size="0.01"/>
+                  <site name="DimSite13" pos="0 0 -0.0625" rgba="1 0 0 1" type="sphere" size="0.01"/>
+                  <site name="DimSite_leg_14" pos="0.173 -0.073656 0" rgba="0 0 1 1" type="sphere" size="0.01"/>
+                  <body name="leg1Link1" pos="0.17304 -0.073664 0" quat="0.707105 0 0 -0.707108">
+                    <inertial pos="0.0709151 0.000262481 -0.0569816" quat="0.996414 -0.00280195 0.0842178 0.00765292" mass="0.497091" diaginertia="0.000357154 0.000337045 0.000226301"/>
+                    <joint name="leg1Joint1" pos="0 0 0" axis="0 0 1"/>
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg1Link1"/>
+                    <geom type="mesh" rgba="1 1 1 1" mesh="leg1Link1"/>
+                    <body name="leg1Link2" pos="0.074919 0 0" quat="0.707105 0.707108 0 0">
+                      <inertial pos="0.056725 0.011378 -0.00056886" quat="-0.0540989 0.705016 0.0490145 0.705424" mass="0.23246" diaginertia="0.000222892 0.000190317 9.72505e-05"/>
+                      <joint name="leg1Joint2" pos="0 0 0" axis="0 0 1"/>
+                      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg1Link2"/>
+                      <geom type="mesh" rgba="1 1 1 1" mesh="leg1Link2"/>
+                      <body name="leg1Link3" pos="0.10528 0 0">
+                        <inertial pos="0.043398 -0.00046421 -0.00014369" quat="0.999714 0.0233587 -0.000448313 0.00515039" mass="0.10463" diaginertia="7.83485e-05 6.42514e-05 5.099e-05"/>
+                        <joint name="leg1Joint3" pos="0 0 0" axis="0 0 1"/>
+                        <site name="DimSite_legEnd_01" pos="0.17 0 0" rgba="0 1 1 1" type="sphere" size="0.01"/>
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg1Link3"/>
+                        <geom type="mesh" rgba="1 1 1 1" mesh="leg1Link3"/>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+                <body name="leg3Link1" pos="0.051605 -0.073842 0" quat="0.707105 0 0 -0.707108">
+                  <inertial pos="0.0709151 0.000262482 -0.0569816" quat="0.996414 -0.002802 0.0842178 0.00765307" mass="0.497091" diaginertia="0.000357154 0.000337045 0.000226301"/>
+                  <joint name="leg3Joint1" pos="0 0 0" axis="0 0 1"/>
+                  <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg3Link1"/>
+                  <geom type="mesh" rgba="1 1 1 1" mesh="leg3Link1"/>
+                  <body name="leg3Link2" pos="0.074919 0 0" quat="0.707105 0.707108 0 0">
+                    <inertial pos="0.0567252 0.0113781 -0.000488184" quat="-0.0541001 0.705016 0.0490166 0.705424" mass="0.232456" diaginertia="0.00022289 0.000190313 9.72503e-05"/>
+                    <joint name="leg3Joint2" pos="0 0 0" axis="0 0 1"/>
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg3Link2"/>
+                    <geom type="mesh" rgba="1 1 1 1" mesh="leg3Link2"/>
+                    <body name="leg3Link3" pos="0.10528 0 0">
+                      <inertial pos="0.0433981 -0.000464208 -0.00014369" quat="0.999714 0.0233586 -0.000448336 0.00515051" mass="0.104632" diaginertia="7.83488e-05 6.42517e-05 5.09903e-05"/>
+                      <joint name="leg3Joint3" pos="0 0 0" axis="0 0 1"/>
+                      <site name="DimSite_legEnd_03" pos="0.17 0 0" rgba="0 1 1 1" type="sphere" size="0.01"/>
+                      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg3Link3"/>
+                      <geom type="mesh" rgba="1 1 1 1" mesh="leg3Link3"/>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+          <body name="leg2Link1" pos="0.17336 -0.073442 0" quat="0.707105 0 0 -0.707108">
+            <inertial pos="0.0700941 0.000175316 -0.0655504" quat="0.995302 -0.00195338 0.0962391 0.0103674" mass="0.412504" diaginertia="0.000319355 0.000305314 0.000204215"/>
+            <joint name="leg2Joint1" pos="0 0 0" axis="0 0 1"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg2Link1"/>
+            <geom type="mesh" rgba="1 1 1 1" mesh="leg2Link1"/>
+            <body name="leg2Link2" pos="0.074919 0 0" quat="0.707105 0.707108 0 0">
+              <inertial pos="0.0567252 0.0113781 -0.000568857" quat="-0.0541002 0.705016 0.0490166 0.705424" mass="0.232456" diaginertia="0.00022289 0.000190313 9.72503e-05"/>
+              <joint name="leg2Joint2" pos="0 0 0" axis="0 0 1"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg2Link2"/>
+              <geom type="mesh" rgba="1 1 1 1" mesh="leg2Link2"/>
+              <body name="leg2Link3" pos="0.10528 0 0" quat="-3.67321e-06 0 0 1">
+                <inertial pos="-0.0433981 0.000464208 -0.00014369" quat="0.999714 -0.0233586 0.000448336 0.00515051" mass="0.104632" diaginertia="7.83488e-05 6.42517e-05 5.09903e-05"/>
+                <joint name="leg2Joint3" pos="0 0 0" axis="0 0 1"/>
+                <site name="DimSite_legEnd_02" pos="-0.17 0 0" rgba="0 1 1 1" type="sphere" size="0.01"/>
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg2Link3"/>
+                <geom type="mesh" rgba="1 1 1 1" mesh="leg2Link3"/>
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="leg0Link1" pos="0.051868 -0.07395 0" quat="0.707105 0 0 -0.707108">
+          <inertial pos="0.070094 0.000175359 -0.0655502" quat="0.995302 -0.00195335 0.0962391 0.0103673" mass="0.412502" diaginertia="0.000319355 0.000305314 0.000204215"/>
+          <joint name="leg0Joint1" pos="0 0 0" axis="0 0 1"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg0Link1"/>
+          <geom type="mesh" rgba="1 1 1 1" mesh="leg0Link1"/>
+          <body name="leg0Link2" pos="0.074919 0 0" quat="0.707105 0.707108 0 0">
+            <inertial pos="0.0567259 0.0113787 -0.000568727" quat="-0.0541022 0.705017 0.049025 0.705422" mass="0.23246" diaginertia="0.000222893 0.000190315 9.72512e-05"/>
+            <joint name="leg0Joint2" pos="0 0 0" axis="0 0 1"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg0Link2"/>
+            <geom type="mesh" rgba="1 1 1 1" mesh="leg0Link2"/>
+            <body name="leg0Link3" pos="0.10528 0 0">
+              <inertial pos="0.0433981 -0.000464208 -0.00014369" quat="0.999714 0.0233586 -0.000448339 0.00515051" mass="0.104632" diaginertia="7.83488e-05 6.42517e-05 5.09903e-05"/>
+              <joint name="leg0Joint3" pos="0 0 0" axis="0 0 1"/>
+              <site name="DimSite_legEnd_00" pos="0.17 0 0" rgba="0 1 1 1" type="sphere" size="0.01"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="leg0Link3"/>
+              <geom type="mesh" rgba="1 1 1 1" mesh="leg0Link3"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+	</body>
+  </worldbody>
+  
+  <equality>
+    <connect name="c1" body1="frameLink8" body2="trunk" anchor="0.2245 0 -0.01" solimp="1 1 0 0 0"/>
+    <connect name="c2" body1="frameLink8" body2="trunk" anchor="0.2245 0 0.01" solimp="1 1 0 0 0"/>
+  </equality>
+  
+  <actuator>
+	<position name="frameJoint2_motor" ctrllimited="true" ctrlrange="-6.8 0" joint="frameJoint2" kp="30" kv="5"/>
+	<position name="frameJoint3_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint3" kp="30" kv="5"/>
+<!--	<position name="frameJoint4_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint4" kp="300" kv="5"/>-->
+	<position name="frameJoint5_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint5" kp="30" kv="5"/>
+	<position name="frameJoint6_motor" ctrllimited="true" ctrlrange="-6.8 0" joint="frameJoint6" kp="30" kv="5"/>
+<!--	<position name="frameJoint7_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint7" kp="300" kv="5"/>-->
+	<position name="frameJoint8_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint8" kp="30" kv="5"/>
+
+    <position name="FR_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint1" kp="30" kv="5"/>
+    <position name="FR_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint2" kp="30" kv="5"/>
+    <position name="FR_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint3" kp="30" kv="5"/>
+    <position name="RR_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint1" kp="30" kv="5"/>
+    <position name="RR_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint2" kp="30" kv="5"/>
+    <position name="RR_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint3" kp="30" kv="5"/>
+    <position name="RL_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint1" kp="30" kv="5"/>
+    <position name="RL_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint2" kp="30" kv="5"/>
+    <position name="RL_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint3" kp="30" kv="5"/>
+    <position name="FL_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint1" kp="30" kv="5"/>
+    <position name="FL_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint2" kp="30" kv="5"/>
+    <position name="FL_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint3" kp="30" kv="5"/>
+   </actuator>
+</mujoco>

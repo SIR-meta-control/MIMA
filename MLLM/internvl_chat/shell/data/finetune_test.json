@@ -1,0 +1,10 @@
+{
+   "ai2d_train_12k": {
+    "root": "/fuxi_team14/users/haoyanghe/codes/jszn/InternVL/playground/data/ai2d/",
+    "annotation": "/fuxi_team14/users/haoyanghe/codes/jszn/InternVL/playground/opensource/ai2d_train_12k.jsonl",
+    "data_augment": false,
+    "repeat_time": 1,
+    "length": 12413
+  }
+ 
+}

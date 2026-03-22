@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Optimizer Node -->
+    <node name="optimizer" pkg="optimizer" type="pareto_optimizer_node.py" output="screen">
+        <!-- 可以在这里添加参数 -->
+        <!-- <param name="param_name" value="param_value"/> -->
+    </node>
+</launch>

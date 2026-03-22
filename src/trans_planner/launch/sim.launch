@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="flag_sim" type="bool" value="true" />
+    <node name="planner_node" pkg="trans_planner" type="planner.py" output="screen">
+    </node>
+</launch>

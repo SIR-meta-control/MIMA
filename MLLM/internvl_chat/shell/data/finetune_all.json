@@ -1,0 +1,10 @@
+{
+   "ours_train_1k": {
+    "root": "/home/dailab/jszn_files/ft_data2",
+    "annotation": "/home/dailab/jszn_files/ft_data2/ours_train_1k.jsonl",
+    "data_augment": false,
+    "repeat_time": 1,
+    "length": 6
+  }
+ 
+}

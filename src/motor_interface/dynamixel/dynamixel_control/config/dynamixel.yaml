@@ -1,0 +1,8 @@
+port: /dev/ttyTHS0
+baudrate: 115200
+timeout: 100
+looprate: 3
+log: false # terminal
+feedback: true # data
+torque: true
+address: [64, 116, 126, 128, 132, 144, 146]

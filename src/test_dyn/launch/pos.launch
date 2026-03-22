@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="test_dyn_node" pkg="test_dyn" type="test_dyn_srv.py" output="screen">
+    </node>
+</launch>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+  <arg name="st_param_file" default="$(find stserial)/config/st.yaml"/>
+  <rosparam command="load" ns="st" file="$(arg st_param_file)"/>
+  <param name="/stserial/st_yaml_path" value="$(find stserial)/config/st.yaml"/>
+  <node pkg="stserial" type="st_node" name="st_node" output="screen" respawn="false">
+  </node>
+
+</launch>

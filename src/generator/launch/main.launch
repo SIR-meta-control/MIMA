@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Include other launch files -->
+    <include file="$(find test_dyn)/launch/pos.launch" />
+    <include file="$(find optimizer)/launch/optimizer.launch" />
+    <include file="$(find kinematics_interpreter)/launch/main.launch" />
+    <include file="$(find trans_planner)/launch/real.launch" />
+
+    <!-- Detection Node with RViz -->
+    <node name="generator_node" pkg="generator" type="main.py" output="screen">
+        <!-- Model parameters -->
+        <param name="model_path" value="$(find generator)/generation/checkpoints/best_model.pt" />
+        <param name="num_configs" value="10" />
+
+        <!-- Robot config generator topic parameters -->
+        <param name="detection_vector_topic" value="/detection/vector/manually" />
+        <param name="generated_configs_topic" value="/generated_topolist" />
+
+        <!-- Detection parameters -->
+        <rosparam param="detection_vector">[0.8, 0.7, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0]</rosparam>
+    </node>
+
+    <!-- Delayed manual publisher -->
+    <node name="manual_publisher" pkg="generator" type="manual_publisher.py" output="screen" launch-prefix="bash -c 'sleep 5; $0 $@' " />
+
+    <!-- Message Saver Node -->
+    <node name="message_saver" pkg="test_dyn" type="message_saver.py" output="screen" />
+</launch>

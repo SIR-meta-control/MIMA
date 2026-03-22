@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+  <param name="/dynamixel_control/dyn_yaml_path" value="$(find dynamixel_control)/config/dynamixel.yaml"/>
+  <node pkg="dynamixel_control" type="dynamixel_control_node" name="dynamixel_control_node" output="screen" respawn="false"/>
+</launch>

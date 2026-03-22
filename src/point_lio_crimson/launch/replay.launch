@@ -1,0 +1,6 @@
+<launch>
+	<node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find point_lio_crimson)/rviz_cfg/replay.rviz" />
+	
+	<node pkg="point_lio_crimson" type="replay_node" name="replay_node" output="screen" />
+    <param name="map_show_path" type="string" value="$(find point_lio_crimson)/map/indoor_show.pcd" />
+</launch>

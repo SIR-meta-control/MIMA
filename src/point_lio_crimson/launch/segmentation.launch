@@ -1,0 +1,8 @@
+<launch>
+	<node pkg="point_lio_crimson" type="segmentation_node" name="segmentation_node" output="screen" />
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="static_transform_publisher" args="0 0 0 0 0 0 aft_mapped body"/> -->
+    <!-- <param name="segmentation_leaf_size" type="double" value="0.05" /> -->
+    <!-- <param name="all_leaf_size" type="double" value="0.2" /> -->
+    <param name="pcd_save_interval" type="int" value="5" />
+    <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find point_lio_crimson)/rviz_cfg/segmentation.rviz" />
+</launch>
