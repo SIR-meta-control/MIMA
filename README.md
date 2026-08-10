@@ -1,242 +1,265 @@
-This directory contains ROS 1 (Catkin) packages and MLLM used in the work titled **Metamorphous adaptability in robotic systems through intelligent structural evolvement**.
+# MIMA
+
+This repository contains the ROS, multimodal requirement-inference, structure-generation,
+energy-estimation, and experiment code for **Metamorphous adaptability in robotic
+systems through intelligent structural evolvement**.
 
 <div align="center">
-  <div>
-    <img src="figure/MIMA.png" width=75%>
-  </div>
+  <img src="figure/MIMA.png" width="75%" alt="MIMA system overview">
 </div>
-<font color=#a0a0a0 size=2>The Multimodal Intelligent Metamorphosis Architecture (MIMA) for guiding robot metamorphosis to adapt to the environment. a, MIMA processes both cognition of the environment and tasks (perception space) and of a robot structure (metamorphosis space) and establishes the mapping between cognitive spaces through multiple neural-network models. It consists of b, multimodal data inputs block, c, MLLM inference block, and d, geometrical inference block for metamorphosis. The MIMA generates the topologies and optimizes the metamorphosis configuration states.
-  </font>
 
-### Components
+MIMA maps multimodal observations and task information to an executable robot
+metamorphosis. The released code separates model inference, configuration generation,
+candidate selection, command generation, physical control, simulation replay, and
+paper-table reconstruction so that each experimental boundary is explicit.
 
-| Component                    | Description                                      |
-| ---------------------------- | ------------------------------------------------ |
-| `README.md`                  | The README file of the project                   |
-| `bags`                       | The rosbag files of the project                  |
-| `runs`                       | The running results of the project               |
-| `src`                        | The source code of the project                   |
-| `src/meta_msgs`              | Shared message definitions                       |
-| `src/generator`              | Topological configuration generation             |
-| `src/optimizer`              | Energy evaluation and optimal topology selection |
-| `src/kinematics_interpreter` | Graph to joint angle conversion                  |
-| `src/graph_modeler`          | Joint angle to graph conversion                  |
-| `src/trans_planner`          | Joint angle trajectory interpolation             |
-| `src/test_dyn`               | Joint motor interface for testing                |
-| `src/motor_interface`        | Joint motor interface for real hardware          |
-| `src/crimson_control`        | Implementation layer for the robot               |
-| `src/models/crimson/urdf`    | Robot description and simulation assets          |
-| `MLLM`                       | The MLLM used in the project                     |
+## Complete pipeline
 
-### Third-party software included or relied upon
+The evaluated full pipeline consists of five stages:
 
-| Component            | Upstream                                                                         | Location in this tree           |
-| -------------------- | -------------------------------------------------------------------------------- | ------------------------------- |
-| Point-LIO (HKU-MARS) | [https://github.com/hku-mars/Point-LIO](https://github.com/hku-mars/Point-LIO)   | `point_lio_crimson/` (modified) |
-| libb64               | [https://github.com/libb64/libb64](https://github.com/libb64/libb64)             | `third_party/libb64/`           |
-| WebSocket++ 0.8.x    | [https://github.com/zaphoyd/websocketpp](https://github.com/zaphoyd/websocketpp) | `third_party/websocketpp/`      |
+1. **Multimodal input.** RGB, depth, point-cloud, and task inputs describe the passage
+   and the requested traversal.
+2. **Requirement-vector inference.** Full-MIMA uses the frozen MLLM teacher to infer
+   the seven-dimensional requirement vector
+   `v_r = [w_p, h_p, d_p, h_s, f_l, f_i, f_p]`.
+3. **Configuration generation.** The cVAE generates candidate metamorphosis
+   configurations conditioned on the requirement vector.
+4. **Feasibility and energy selection.** Candidates are screened using information
+   available to the system, ranked by calibrated energy, and tried in ranked order when
+   a lower-energy candidate is not feasible. The no-energy-optimizer ablation instead
+   uses the first generated candidate; its energy is computed only for post-hoc audit.
+5. **Command generation and execution.** The selected topology is converted to joint
+   targets, interpolated into a command sequence, and sent to simulation or the robot
+   control layer.
 
-The `point_lio_crimson` package links against **libb64** headers from `third_party/libb64/`. **WebSocket++** is vendored alongside other code; it is not required to build the `point_lio_crimson` targets as configured in this repository.
+The system-level ablations change only the named component while retaining the same
+downstream pipeline and evaluation protocol.
 
----
+## Repository contents
 
-## 1. System requirements
+| Location | Purpose |
+| --- | --- |
+| [`src/`](src/) | ROS packages for generation, optimization, kinematics, planning, sensing, simulation, and robot control |
+| [`MLLM/`](MLLM/) | Generic InternVL code and paper-specific requirement-vector inference interfaces |
+| [`MLLM/mima_requirement_vector/`](MLLM/mima_requirement_vector/README.md) | Full-MIMA and distilled service clients, RF/DT/GBT baselines, model documentation, and tests |
+| [`experiments/system_level_ablation/`](experiments/system_level_ablation/README.md) | Seven-method batch protocols, backend contract, table reconstruction, and tests |
+| [`src/ros_mujoco/`](src/ros_mujoco/README.md) | MuJoCo replay and calibrated energy estimation |
+| [`runs/`](runs/) | Released calibration reports and supporting analysis code |
+| [`figure/`](figure/) | Repository figures |
 
-### Operating system and middleware
+The source tree does not claim to distribute every trained asset used in the paper.
+In particular, the hosted Full-MIMA teacher service, the adopted distilled service,
+and all trained cVAE/MLP assets required for an exact full-chain rerun must be supplied
+explicitly. The conventional RF, DT, and GBT baseline weights are included in the
+requirement-vector module. See the module READMEs for the precise release boundary.
 
-- **OS:** Ubuntu **20.04** (64-bit, `x86_64`).
-- **ROS:** **ROS Noetic** with **Catkin**.
-- **Build tools:** `build-essential`, **CMake** ≥ 2.8.3, **GCC** (as provided for Noetic), **C++14**.
+## Installation
 
-### Software dependencies (version notes)
+The ROS packages target ROS 1 with Catkin. Install the ROS packages required by the
+individual package manifests together with Eigen, PCL, OpenCV, libcurl, ZBar,
+yaml-cpp, nlohmann/json, and Python development headers. Live LiDAR operation also
+requires the appropriate vendor driver in a sourced workspace.
 
-**ROS packages (representative list — also install transitive dependencies):**
-
-- Core: `ros-noetic-catkin`, `ros-noetic-roscpp`, `ros-noetic-rospy`, `ros-noetic-std-msgs`, `ros-noetic-sensor-msgs`, `ros-noetic-geometry-msgs`, `ros-noetic-nav-msgs`, `ros-noetic-tf`
-- Messages / filters: `ros-noetic-message-generation`, `ros-noetic-message-runtime`, `ros-noetic-message-filters`
-- visualization: `ros-noetic-pcl-ros`, `ros-noetic-pcl-conversions`, `ros-noetic-cv-bridge`, `ros-noetic-eigen-conversions`, `ros-noetic-rviz`, `ros-noetic-robot-state-publisher`, `ros-noetic-joint-state-publisher-gui`, `ros-noetic-roslaunch`
-- planning: `ros-noetic-teb-local-planner`, `ros-noetic-serial`
-- Simulation: `ros-noetic-gazebo-ros` and related Gazebo packages as needed
-- **LiDAR driver (separate workspace):** [livox_ros_driver](https://github.com/Livox-SDK/livox_ros_driver) — required for Livox-focused workflows; build and `source` its workspace before building or running `point_lio_crimson` (see the driver documentation and [`point_lio_crimson/README.md`](point_lio_crimson/README.md))
-
-**System libraries (many are pulled in via `rosdep` or ROS metapackages):**
-
-- **Eigen3** — `libeigen3-dev`
-- **PCL** — `libpcl-dev` (≥ 1.8)
-- **OpenCV** — `libopencv-dev`
-- **libcurl** — `libcurl4-openssl-dev`
-- **ZBar** — `libzbar-dev`
-- **yaml-cpp** — `libyaml-cpp-dev` (for `crimson_control`)
-- **Python development headers** — `python3-dev` (and `libpython3-dev` on Ubuntu)
-- **nlohmann/json** — `nlohmann-json3-dev`
-- **OpenMP** — optional; improves parallelism when available (`libomp-dev` / compiler OpenMP support)
-
-**Header-only dependency (matplotlib-cpp):**  
-CMake calls `find_path(... matplotlibcpp.h)`. Install the header, for example:
+Place `src/` in a Catkin workspace, install dependencies with `rosdep`, and build:
 
 ```bash
-sudo wget -O /usr/local/include/matplotlibcpp.h https://raw.githubusercontent.com/lava/matplotlib-cpp/master/matplotlibcpp.h
+cd "$CATKIN_WORKSPACE"
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make -DCMAKE_BUILD_TYPE=Release
+source devel/setup.bash
 ```
 
-(Or clone [matplotlib-cpp](https://github.com/lava/matplotlib-cpp) and add its directory to `CMAKE_INCLUDE_PATH` / your environment.)
-
-**Metapackage recommendation:** Installing **`ros-noetic-desktop-full`** covers most ROS libraries above and Python bindings used by tutorials; a minimal install is possible using `ros-noetic-ros-base` plus the packages listed explicitly.
-
-### Python packages (names only — install commands are in §2)
-
-`rospy` (via ROS deb packages), `numpy`, `matplotlib`, `PyYAML`, `scipy`, `mujoco`
-
-Use the **same Python 3 interpreter** as ROS Noetic (`/usr/bin/python3`). Avoid activating a Conda env that shadows `/opt/ros/noetic` when running `rosrun` / `roslaunch`.
-
-### Versions the software has been tested on
-
-Development and builds are expected on **Ubuntu 20.04** with **ROS Noetic**. **Other Ubuntu versions or ROS 2 have not been validated** for this tree.
-
-### Non-standard hardware
-
-- **LiDAR + IMU:** Required for live operation with a physical sensor suite; message types and timing must match your driver and launch configuration.
-- **Dynamixel servos / custom serial hardware:** Referenced by `motor_interface` and `crimson_control` packages when driving the physical robot.
-- **NVIDIA GPU with appropriate drivers:** required for the `generator` package.
-
-For **software-only** builds, a normal `x86_64` PC with NVIDIA GPU is sufficient; some launch files will not be meaningful without the corresponding sensors or actuators.
-
----
-
-## 2. Installation guide
-
-### Layout
-
-Let `$WS` be your Catkin workspace root (e.g. `~/catkin_ws`). Place this repository’s `src` tree at **`$WS/src`** (so packages appear as `$WS/src/generator`, `$WS/src/meta_msgs`, …).
-
-### Steps
-
-1. **Install ROS Noetic** following [http://wiki.ros.org/noetic/Installation/Ubuntu](http://wiki.ros.org/noetic/Installation/Ubuntu). Suggested: `ros-noetic-desktop-full`.
-
-2. **Install system and ROS dependencies** (adjust if you use a minimal ROS install):
-
-   ```bash
-   sudo apt update
-   sudo apt install -y \
-     build-essential cmake git \
-     libeigen3-dev libpcl-dev libopencv-dev \
-     libcurl4-openssl-dev libzbar-dev \
-     libyaml-cpp-dev nlohmann-json3-dev \
-     python3-dev libpython3-dev \
-     ros-noetic-pcl-ros ros-noetic-pcl-conversions \
-     ros-noetic-cv-bridge ros-noetic-eigen-conversions \
-     ros-noetic-teb-local-planner ros-noetic-serial \
-     ros-noetic-rviz ros-noetic-robot-state-publisher \
-     ros-noetic-joint-state-publisher-gui ros-noetic-roslaunch \
-     ros-noetic-gazebo-ros
-   ```
-
-3. **matplotlibcpp.h**:
-
-   ```bash
-   sudo wget -O /usr/local/include/matplotlibcpp.h \
-     https://raw.githubusercontent.com/lava/matplotlib-cpp/master/matplotlibcpp.h
-   ```
-
-4. **Initialize rosdep** (once per machine):
-
-   ```bash
-   sudo rosdep init || true
-   rosdep update
-   cd $WS
-   rosdep install --from-paths src --ignore-src -r -y
-   ```
-
-5. **Livox ROS driver** (if you use Livox hardware or corresponding bags): clone and build in a separate workspace, then add to `~/.bashrc`:
-
-   ```bash
-   source /path/to/livox_ws/devel/setup.bash
-   ```
-
-6. **Build the Catkin workspace:**
-
-   ```bash
-   cd $WS
-   catkin_make -DCMAKE_BUILD_TYPE=Release
-   # or: catkin build
-   source $WS/devel/setup.bash
-   ```
-
-   Add `source $WS/devel/setup.bash` to `~/.bashrc` if desired.
-
-### Python dependencies
-
-Prefer **APT** for packages available as Ubuntu debs (matches ROS Noetic’s `python3`):
+Install the standalone Python dependencies needed by the energy tools with:
 
 ```bash
-sudo apt install -y python3-pip python3-numpy python3-matplotlib python3-yaml python3-scipy
+python3 -m pip install -r requirements-energy.txt
 ```
 
-**MuJoCo Python binding** is not always packaged; install for the **user** so it does not require mixing Conda with ROS:
+Requirement-vector and system-level-ablation dependencies and focused tests are
+documented in their respective module READMEs.
+
+## MLLM-distilled
+
+MLLM-distilled was constructed from the frozen Full-MIMA teacher to provide a
+resource-efficient requirement-vector backend. The adopted Teacher-only ET32 student
+uses a multi-output ensemble of 32 extremely randomized trees. It converts RGB, depth,
+point-cloud, and task inputs into an 85-dimensional deterministic sensor summary and
+jointly predicts all seven requirement-vector components. Feature computation samples
+at most 32,768 sensor elements; this is a feature-extraction limit, not the number of
+training examples.
+
+The student was trained on teacher-generated requirement-vector targets for 978
+outer-training samples. Original targets were withheld from the student-training
+objective and retained for offline evaluation. Because the student preserves the
+Full-MIMA requirement-vector interface, the cVAE generator, energy optimizer, and
+controller remain unchanged.
+
+The RF, DT, and GBT rows are direct conventional replacements rather than distilled
+students. They use a separate deterministic 16-feature adapter and are therefore not
+equivalent to the 85-dimensional Teacher-only ET32 pipeline. Model interfaces, the
+available local assets, and unsupported claims are documented in the
+[requirement-vector model card](MLLM/mima_requirement_vector/MODEL_CARD.md).
+
+## System-level ablation
+
+The released protocol covers the following seven methods:
+
+| Method | Requirement source | Generator | Candidate selection |
+| --- | --- | --- | --- |
+| Full-MIMA | Frozen Full-MIMA teacher | cVAE | Energy-ranked feasible fallback |
+| MLLM-distilled | Teacher-only ET32 | cVAE | Energy-ranked feasible fallback |
+| MLLM -> RF | Random forest | cVAE | Energy-ranked feasible fallback |
+| MLLM -> DT | Decision tree | cVAE | Energy-ranked feasible fallback |
+| MLLM -> GBT | Gradient-boosted tree | cVAE | Energy-ranked feasible fallback |
+| cVAE -> MLP | Frozen Full-MIMA teacher | Deterministic MLP | Energy-ranked feasible fallback |
+| w/o Energy optimizer | Frozen Full-MIMA teacher | cVAE | First generated candidate; post-hoc energy audit only |
+
+The paper-table reconstruction produces:
+
+| Method | Success rate (%) | Normalized energy (%) | Command-ready latency (s) |
+| --- | ---: | ---: | ---: |
+| Full-MIMA | 95.23 | 100.00 +/- 1.79 | 3.76 +/- 0.21 |
+| MLLM-distilled | 87.38 | 100.04 +/- 1.82 | 0.74 +/- 0.21 |
+| MLLM -> RF | 62.06 | 99.93 +/- 1.70 | 0.76 +/- 0.10 |
+| MLLM -> DT | 15.98 | 99.88 +/- 1.69 | 0.73 +/- 0.09 |
+| MLLM -> GBT | 28.32 | 99.80 +/- 1.61 | 0.75 +/- 0.10 |
+| cVAE -> MLP | 34.58 | 103.17 +/- 7.57 | 4.32 +/- 0.54 |
+| w/o Energy optimizer | 94.95 | 104.87 +/- 14.77 | 3.13 +/- 0.03 |
+
+### Success
+
+An execution is successful only when all three conditions hold:
+
+1. full-chain command generation succeeds;
+2. the generated width and height fit the ground-truth passage; and
+3. predicted width and height are each within the geometric tolerance.
+
+The geometric tolerance is 3% of the midpoint of the evaluated height range:
+
+```text
+height range = [0.27, 0.43] m
+midpoint = 0.35 m
+tolerance = 0.03 x 0.35 m = 0.0105 m
+```
+
+This tolerance is an evaluation rule. It does not alter inference, generation,
+candidate selection, planning, replay, geometry measurement, or energy estimation.
+
+### Normalized energy
+
+Energy is the finite estimate for moving the robot from its home configuration to the
+generated configuration after the command is issued. It is summarized over the same
+evaluation scenarios and configuration-generation seeds. Full-MIMA's mean finite
+energy is the 100% reference:
+
+```text
+normalized mean_i (%) = 100 x mean(E_i) / mean(E_Full-MIMA)
+normalized SD_i (percentage points) = 100 x SD(E_i) / mean(E_Full-MIMA)
+```
+
+The reported dispersion is the sample standard deviation (`ddof=1`). Full-MIMA's
+normalized standard deviation is not zero: normalization fixes its mean at 100%, while
+its row-level energy estimates still vary around that mean.
+
+### Command-ready latency
+
+Command-ready latency is measured immediately before requirement-vector inference and
+ends when the command sequence is ready. It includes:
+
+- requirement-vector inference or the corresponding API request;
+- cVAE/MLP configuration generation;
+- candidate selection and energy ranking, when enabled; and
+- command-sequence generation.
+
+It excludes simulation replay, final geometry measurement, post-hoc energy audit, live
+sensor acquisition, and physical robot execution. The reported timing uses one fixed
+set of 100 samples, one configuration-generation seed, one worker, and model warm-up
+before the timed set. The released timing records do not identify the hardware, so the
+values must not be presented as measurements on a specific onboard device.
+
+## Reproduction levels
+
+Two reproduction levels are intentionally separate.
+
+### Reconstruct the paper table
+
+Table reconstruction reads the released row-level records. It does not call the teacher
+or distilled services and does not rerun the generator, energy model, or simulation.
+From the repository root, run:
 
 ```bash
-pip3 install --user mujoco
+python3 experiments/system_level_ablation/scripts/reproduce_table.py \
+  --bundle-dir "$DATA_BUNDLE" \
+  --output-dir "$TABLE_OUTPUT"
 ```
 
-If `pip3` is missing:
+The reconstruction validates input hashes, sample IDs, seeds, timing coverage,
+finite-energy counts, the derived tolerance, and all reported values after paper-level
+rounding. The released data bundle is documented by its included README.
+
+### Rerun from raw sensor inputs
+
+A full rerun starts from RGB, depth, point-cloud, and task inputs. It invokes a supplied
+requirement-vector source, runs configuration generation and selection, and records
+row-level success and energy. This path requires all model assets and a backend that
+implements the documented full-chain contract; missing assets are rejected rather than
+silently replaced.
 
 ```bash
-sudo apt install -y python3-pip
+python3 experiments/system_level_ablation/scripts/run_success_energy.py \
+  --run-config "$RUN_CONFIG" \
+  --dataset-dir "$SENSOR_DATASET" \
+  --sample-ids-file "$EVALUATION_IDS" \
+  --output-dir "$FULL_CHAIN_OUTPUT" \
+  --backend PACKAGE.MODULE:FUNCTION \
+  --methods full_mima,mllm_distilled,mllm_to_rf,mllm_to_dt,mllm_to_gbt,cvae_to_mlp,without_energy_optimizer \
+  --seeds 1-10 \
+  --workers 1
 ```
 
-**Virtual environments:** ROS Noetic expects system Python and `/opt/ros/noetic` on `PYTHONPATH`. Using a `venv` for ROS nodes is unsupported here; use system/site-packages or `pip3 install --user` as above. Do not run `rosrun`/`roslaunch` under a Conda base env unless you know how to merge `PYTHONPATH` with Noetic.
-
-### Typical install time
-
-On a normal desktop (broadband, SSD), **approximately 90-120 minutes** from a clean Ubuntu 20.04 install through ROS setup, NVIDIA driver installation, dependency installation, and the first full `catkin_make`
-
----
-
-## 3. Demo
-
-There are two demos available:
-
-- `generation` demo: When a requirement vector is input into the generator, it will generate a list of topological configurations and send it to the optimizer.
-  The optimizer will then select the minimum-energy solution and send it to the kinematics interpreter.
-  The kinematics interpreter will then convert the topology to a joint angle vector and send it to the motor interface.
-  A example result is shown below: `$WS/runs/example_results.json`.
-- `visualization` demo: We provide a 30s rosbag file for visualization.
-  The rosbag file is uploaded to the Google drive: https://drive.google.com/file/d/1ue5oxmCAtbVviLTJvWY8hgjgFmvbxKsd/view?usp=sharing
-  It contains the sensor data, the navigation data and the topological graph signal. You can visualize the data in RViz with the configurationfile `$WS/src/point_lio_crimson/rviz_cfg/indoor.rviz`.
-
----
-
-## 4. Instructions for use
-
-To start the generation demo, run the following command:
+Command-ready timing is rerun separately with the fixed timing IDs and one worker:
 
 ```bash
-roslaunch generator main.launch
+python3 experiments/system_level_ablation/scripts/run_execution_time.py \
+  --run-config "$RUN_CONFIG" \
+  --dataset-dir "$SENSOR_DATASET" \
+  --sample-ids-file "$TIMING_IDS" \
+  --output-dir "$TIMING_OUTPUT" \
+  --backend PACKAGE.MODULE:FUNCTION \
+  --seed 7
 ```
 
-The result will be saved to `$WS/runs/result_{time}.json`.
+The backend interface and asset requirements are defined in
+[`BACKEND_API.md`](experiments/system_level_ablation/BACKEND_API.md). Detailed method
+definitions and protocol checks are in the
+[system-level ablation README](experiments/system_level_ablation/README.md).
 
-To start the visualization demo, run the following command:
+## Energy calibration
 
-```bash
-rviz -d $WS/src/point_lio_crimson/rviz_cfg/indoor.rviz
-rosbag play $WS/bags/test.bag
-```
+The MuJoCo energy path supports legacy models for audit compatibility and the final
+`dynamic_calibrated` mode used by the system-level evaluation. The final mode evaluates
+calibrated aggregate power and adds an interval-specific offset for all 16 command
+intervals, including the final return interval. It uses 50 Hz voltage/current traces;
+transformation and sustainment are separated by joint-position convergence using robot
+joint positions for real traces and MuJoCo `qpos` for simulation.
 
----
+This calibration is dataset-specific and must not be described as a universal actuator
+energy model. The implementation, validation procedure, retained legacy modes, and
+focused tests are documented in the
+[MuJoCo energy README](src/ros_mujoco/README.md).
 
-## 5. License
+## Third-party software
 
-**Original work** in this repository (the metamorphous-robotics research code and assets authored for this project, excluding vendored third-party trees listed below) is licensed under the **GNU General Public License v3.0**. The full license text is in [`LICENSE.md`](LICENSE.md).
+| Component | Upstream | Location |
+| --- | --- | --- |
+| Point-LIO | [HKU-MARS/Point-LIO](https://github.com/hku-mars/Point-LIO) | `src/point_lio_crimson/` |
+| libb64 | [libb64/libb64](https://github.com/libb64/libb64) | `src/third_party/libb64/` |
+| WebSocket++ | [zaphoyd/websocketpp](https://github.com/zaphoyd/websocketpp) | `src/third_party/websocketpp/` |
 
-**Third-party and upstream components** keep their own terms:
+Third-party and upstream components retain their own licenses.
 
-| Location                       | License / reference                                                                                                                                                                                   |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/point_lio_crimson/`       | GNU GPL v2 — [`src/point_lio_crimson/LICENSE`](src/point_lio_crimson/LICENSE); nested `include/IKFoM/` — [`src/point_lio_crimson/include/IKFoM/LICENSE`](src/point_lio_crimson/include/IKFoM/LICENSE) |
-| `src/third_party/libb64/`      | [`src/third_party/libb64/LICENSE.md`](src/third_party/libb64/LICENSE.md)                                                                                                                              |
-| `src/third_party/websocketpp/` | Vendored [WebSocket++](https://github.com/zaphoyd/websocketpp) (BSD 3-Clause; see upstream `COPYING` in that repository)                                                                              |
-| `MLLM/`                        | Per-subtree — e.g. [`MLLM/lmdeploy/LICENSE`](MLLM/lmdeploy/LICENSE), [`MLLM/internvl_chat_llava/LICENSE`](MLLM/internvl_chat_llava/LICENSE)                                                           |
+## License
 
-When you redistribute or combine binaries, you must comply with **all** applicable licenses (including GPL obligations for GPL-covered parts).
-
----
+Original work in this repository is licensed under the GNU General Public License v3.0.
+See [`LICENSE.md`](LICENSE.md). Vendored and modified third-party components retain the
+terms stated in their corresponding license files.

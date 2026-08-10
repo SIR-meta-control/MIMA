@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="render" default="true" />
+    <arg name="update_rate" default="100.0" />
+    <arg name="frame_skip" default="10" />
+    <arg name="model_path" default="$(find ros_mujoco)/../models/crimson/mjcf/crimson_scene.xml" />
+    <arg name="real_control_topic" default="/dynamixel_control/sync_write" />
+    <arg name="direct_control_topic" default="" />
+    <arg name="get_angles_service" default="get_angles" />
+
+    <node name="ros_mujoco" pkg="ros_mujoco" type="ros_mujoco_node.py" output="screen">
+        <param name="render" value="$(arg render)" />
+        <param name="update_rate" value="$(arg update_rate)" />
+        <param name="frame_skip" value="$(arg frame_skip)" />
+        <param name="model_path" value="$(arg model_path)" />
+        <param name="real_control_topic" value="$(arg real_control_topic)" />
+        <param name="direct_control_topic" value="$(arg direct_control_topic)" />
+        <param name="get_angles_service" value="$(arg get_angles_service)" />
+    </node>
+</launch>

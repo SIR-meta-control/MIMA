@@ -3,3 +3,14 @@ __pycache__/
 .idea/
 .pytest_cache/
 .pytest_cache/
+
+# Generated MuJoCo energy-calibration artifacts
+runs/mujoco_experiment_energy*.json
+runs/**/original_bag/
+runs/**/csv/
+runs/**/dynamic_energy_comparison/
+runs/**/calibration_50hz/
+runs/**/*.bag
+runs/**/*.png
+runs/**/*.pdf
+runs/**/*.svg

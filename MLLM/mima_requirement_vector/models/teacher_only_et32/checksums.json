@@ -1,0 +1,18 @@
+{
+  "model": "strict_student_teacher_only_et32_s32768",
+  "feature_version": "distill_sensor_summary_v2_sampled",
+  "artifacts": [
+    {
+      "path": "student.joblib",
+      "bytes": 5964049,
+      "sha256": "9ce5c658ee50b47d388a4abec30b76fe8f5322badcd68156474fb7a53cfc06e4",
+      "included": false
+    },
+    {
+      "path": "metadata.json",
+      "bytes": 4154,
+      "sha256": "c4cb6f54d144a31149f98ef7cff48e4118d2fd50cdd008dfc0b223c1c505af06",
+      "included": false
+    }
+  ]
+}

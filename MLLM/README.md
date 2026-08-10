@@ -11,6 +11,15 @@ This repository provides multimodal inference scripts built on top of InternVL-s
 
 The default end-to-end entrypoint is infer.py.
 
+## Paper-specific requirement-vector inference
+
+The Full-MIMA teacher API contract, MLLM-distilled Teacher-only ET32 model
+record, and RF/DT/GBT requirement-vector baselines are maintained in
+[`mima_requirement_vector/`](mima_requirement_vector/README.md). That directory
+defines the strict seven-dimensional output schema and separates the locally
+reproducible conventional baselines from teacher/student assets that are not
+currently distributed.
+
 ## Installation
 
 Please follow:

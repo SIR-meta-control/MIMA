@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "assets": {
+    "requirement_sources": {
+      "full_mima_teacher": "",
+      "teacher_only_et32": "",
+      "rf": "",
+      "dt": "",
+      "gbt": ""
+    },
+    "structure_models": {
+      "cvae": "",
+      "mlp": ""
+    },
+    "energy_model": "",
+    "robot_model": ""
+  },
+  "protocol": {
+    "samples_per_bar": 34,
+    "top_k": 10,
+    "energy_max_candidates": 3,
+    "energy_mode": "dynamic_calibrated",
+    "transition_steps": 100,
+    "constraint_steps": 25,
+    "sustain_steps": 10,
+    "planner_steps": 100,
+    "maximum_size_excess_m": 0.0001,
+    "task_tolerance": 0.0
+  }
+}

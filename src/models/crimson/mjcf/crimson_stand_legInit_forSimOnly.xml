@@ -198,25 +198,25 @@
   </equality>
   
   <actuator>
-	<position name="frameJoint2_motor" ctrllimited="true" ctrlrange="-6.8 0" joint="frameJoint2" kp="30" kv="5"/>
-	<position name="frameJoint3_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint3" kp="30" kv="5"/>
+	<position name="frameJoint2_motor" ctrllimited="true" ctrlrange="-6.8 0" joint="frameJoint2" kp="30" kv="2.6087"/>
+	<position name="frameJoint3_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint3" kp="30" kv="2.6087"/>
 <!--	<position name="frameJoint4_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint4" kp="300" kv="5"/>-->
-	<position name="frameJoint5_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint5" kp="30" kv="5"/>
-	<position name="frameJoint6_motor" ctrllimited="true" ctrlrange="-6.8 0" joint="frameJoint6" kp="30" kv="5"/>
+	<position name="frameJoint5_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint5" kp="30" kv="2.6087"/>
+	<position name="frameJoint6_motor" ctrllimited="true" ctrlrange="-6.8 0" joint="frameJoint6" kp="30" kv="2.6087"/>
 <!--	<position name="frameJoint7_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint7" kp="300" kv="5"/>-->
-	<position name="frameJoint8_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint8" kp="30" kv="5"/>
+	<position name="frameJoint8_motor" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="frameJoint8" kp="30" kv="2.6087"/>
 
-    <position name="FR_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint1" kp="30" kv="5"/>
-    <position name="FR_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint2" kp="30" kv="5"/>
-    <position name="FR_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint3" kp="30" kv="5"/>
-    <position name="RR_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint1" kp="30" kv="5"/>
-    <position name="RR_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint2" kp="30" kv="5"/>
-    <position name="RR_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint3" kp="30" kv="5"/>
-    <position name="RL_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint1" kp="30" kv="5"/>
-    <position name="RL_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint2" kp="30" kv="5"/>
-    <position name="RL_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint3" kp="30" kv="5"/>
-    <position name="FL_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint1" kp="30" kv="5"/>
-    <position name="FL_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint2" kp="30" kv="5"/>
-    <position name="FL_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint3" kp="30" kv="5"/>
+    <position name="FR_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint1" kp="10" kv="0.869565"/>
+    <position name="FR_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint2" kp="10" kv="0.869565"/>
+    <position name="FR_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg1Joint3" kp="10" kv="0.869565"/>
+    <position name="RR_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint1" kp="10" kv="0.869565"/>
+    <position name="RR_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint2" kp="10" kv="0.869565"/>
+    <position name="RR_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg3Joint3" kp="10" kv="0.869565"/>
+    <position name="RL_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint1" kp="10" kv="0.869565"/>
+    <position name="RL_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint2" kp="10" kv="0.869565"/>
+    <position name="RL_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg2Joint3" kp="10" kv="0.869565"/>
+    <position name="FL_Joint1" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint1" kp="10" kv="0.869565"/>
+    <position name="FL_Joint2" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint2" kp="10" kv="0.869565"/>
+    <position name="FL_Joint3" ctrllimited="true" ctrlrange="-3.1416 3.1416" joint="leg0Joint3" kp="10" kv="0.869565"/>
    </actuator>
 </mujoco>

@@ -11,6 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   meta_msgs
   roscpp
   rospy
+  std_msgs
+  crimson_msgs
+  dynamixel_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -159,10 +162,22 @@ include_directories(
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# catkin_install_python(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+catkin_install_python(PROGRAMS
+  scripts/planner.py
+  scripts/experiment.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+## 安装 shell 脚本 (run_experiment.sh) 以便 rosrun 调用
+install(PROGRAMS
+  scripts/run_experiment.sh
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+## 安装配置与 launch
+install(DIRECTORY config launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html

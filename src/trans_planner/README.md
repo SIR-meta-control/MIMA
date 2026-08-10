@@ -82,3 +82,70 @@ rosrun trans_planner planner.py
 - **Parameters**
   - `flag_sim` (default: `true`) — `true`: simulation publishers + `get_angles`; `false`: Dynamixel sync_write + `GetPos`
   - `step_time` (default: `0.05`) — sleep duration (seconds) between consecutive commands when replaying a trajectory from the `motor_ctrl` callback
+
+## Repeated transformation experiment (`experiment.py`)
+
+The experiment runner repeatedly executes the configured transformation
+sequence. The default sequence traverses `c1` through `c9` and then returns
+through the intermediate configurations to `c1`. Each repetition is recorded
+in a separate rosbag. Interactive execution can pause for confirmation between
+repetitions; unattended execution disables this pause.
+
+### Configuration representation
+
+The `c1` through `c9` entries in `config/experiment.yaml` contain 17 raw
+Dynamixel encoder counts, ordered by motor ID `1..17` and bounded by
+`0..4095`. The runner converts each configuration to the simulation joint-angle
+space with `real2sim`, applies the torso-axis-constrained interpolation from
+`interpolation.py`, converts each frame back with `sim2real`, and publishes the
+result through `/dynamixel_control/sync_write` with `paramType=1`
+(`GoalPosition`). This is the same hardware command path used by `planner.py`.
+
+### Experiment markers
+
+The runner publishes two `crimson_msgs/Trans` marker topics so that command
+intervals can be recovered from the rosbag:
+
+- `/crimson_control/transform`: published immediately before a transformation;
+  `cfg` stores the zero-based sequence step and `mode` stores the configuration
+  index.
+- `/crimson_control/transformed`: published after the interpolated command
+  frames have been sent.
+
+### Recorded data
+
+Each repetition produces
+`<bag_prefix>_<repetition>_<timestamp>.bag` containing
+`/crimson_control/transform`, `/crimson_control/transformed`, and
+`/dynamixel_control/log`.
+
+The `/dynamixel_control/log` message (`dynamixel_msgs/LogData`) records current
+`I` in amperes, input voltage `U` in volts, and joint position `P` as raw
+Dynamixel encoder counts. The position field is read from the Dynamixel
+`PresentPosition` register at address 132.
+
+### Interactive execution
+
+```bash
+rosrun trans_planner run_experiment.sh
+# Use an already running Dynamixel driver:
+START_DYNAMIXEL=0 rosrun trans_planner run_experiment.sh
+```
+
+### Unattended execution
+
+```bash
+roslaunch trans_planner experiment.launch
+# Use an already running Dynamixel driver:
+roslaunch trans_planner experiment.launch start_dynamixel:=false
+```
+
+### Experiment parameters (`config/experiment.yaml`)
+
+- `configs`: measured 17-dimensional encoder-count vectors for `c1..c9`.
+- `sequence`: ordered configuration traversal.
+- `steps` and `step_time`: interpolation-frame count and frame period in
+  seconds.
+- `settle_time`: hold duration after each transformation, in seconds.
+- `num_experiments`: number of repeated experiments; the default is 10.
+- `bag_dir`, `bag_prefix`, and `bag_topics`: rosbag output settings.

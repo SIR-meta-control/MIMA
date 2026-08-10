@@ -1,0 +1,16 @@
+{
+  "artifacts": [
+    {
+      "path": "dt.joblib",
+      "sha256": "cc34166f8d52f8a1022beba47d5e6c2c27431c5e18169a64bb1980efc12c2699"
+    },
+    {
+      "path": "rf.joblib",
+      "sha256": "25c54d3ccb868835ac734dd611daf830f740834d85deb8943557acffb754dd51"
+    },
+    {
+      "path": "gbt.joblib",
+      "sha256": "e8a6503682d588092dc9b0ffa1699f47d6826a26de737bdfcd480245f3fa6635"
+    }
+  ]
+}

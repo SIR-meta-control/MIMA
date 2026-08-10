@@ -59,6 +59,12 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
 
+  <!-- experiment.py / planner.py 运行时依赖 -->
+  <depend>std_msgs</depend>
+  <depend>crimson_msgs</depend>
+  <depend>dynamixel_msgs</depend>
+  <exec_depend>rosbag</exec_depend>
+
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

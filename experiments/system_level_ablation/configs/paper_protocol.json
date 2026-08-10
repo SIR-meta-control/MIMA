@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "method_order": [
+    "Full-MIMA",
+    "MLLM-distilled",
+    "MLLM -> RF",
+    "MLLM -> DT",
+    "MLLM -> GBT",
+    "cVAE -> MLP",
+    "w/o Energy optimizer"
+  ],
+  "sample_ids_path": "evaluation_dataset/sample_ids.txt",
+  "tolerance": {
+    "definition": "3% of the midpoint of the evaluated height range",
+    "fraction": 0.03,
+    "expected_tolerance_m": 0.0105
+  },
+  "coverage": {
+    "evaluation_samples": 107,
+    "seed_min": 1,
+    "seed_max": 10,
+    "execution_rows_per_method": 1070,
+    "timing_rows_per_method": 100
+  },
+  "success_energy_sources": [
+    {
+      "path": "raw_results/success_energy/full_mima_scheme_b/details.csv",
+      "methods": [
+        "Full-MIMA",
+        "cVAE -> MLP",
+        "w/o Energy optimizer"
+      ]
+    },
+    {
+      "path": "raw_results/success_energy/mllm_distilled/details.csv",
+      "methods": ["MLLM-distilled"]
+    },
+    {
+      "path": "raw_results/success_energy/classical_baselines_dynamic/details.csv",
+      "methods": ["MLLM -> RF", "MLLM -> DT", "MLLM -> GBT"]
+    }
+  ],
+  "timing_sources": [
+    {
+      "path": "raw_results/timing/full_and_ablations/execution_time_details.csv",
+      "methods": [
+        "Full-MIMA",
+        "MLLM -> RF",
+        "MLLM -> DT",
+        "MLLM -> GBT",
+        "cVAE -> MLP",
+        "w/o Energy optimizer"
+      ]
+    },
+    {
+      "path": "raw_results/timing/mllm_distilled/execution_time_details.csv",
+      "methods": ["MLLM-distilled"]
+    }
+  ],
+  "input_sha256": {
+    "evaluation_dataset/sample_ids.txt": "0d79bfab01b5e02216a8e5c54e3848a13684a55af1b752d6afec779faee72b02",
+    "raw_results/success_energy/full_mima_scheme_b/details.csv": "5d004da0f6cde68386ef50a0ffe83d4e5ccfa438456f82741d6f2d5324960997",
+    "raw_results/success_energy/mllm_distilled/details.csv": "7cf98504a36cc67b434ef3e184137eb176e5e06afd8effeff390013ff96ca535",
+    "raw_results/success_energy/classical_baselines_dynamic/details.csv": "dad53d63dc8cbcf34accbde21b68853a2500ca687a47ae2506df5267935c1af5",
+    "raw_results/timing/full_and_ablations/execution_time_details.csv": "3c68d90d2249f0ecf99a18ae3501266bb8975738292b24e298009d39b30f7e0c",
+    "raw_results/timing/mllm_distilled/execution_time_details.csv": "d3891fd6b61b222ba8e59be462e2c1c09214a5af618e4fc8b789fac6a7b5f41a"
+  },
+  "expected_rounded": {
+    "Full-MIMA": [95.23, 100.00, 1.79, 3.76, 0.21],
+    "MLLM-distilled": [87.38, 100.04, 1.82, 0.74, 0.21],
+    "MLLM -> RF": [62.06, 99.93, 1.70, 0.76, 0.10],
+    "MLLM -> DT": [15.98, 99.88, 1.69, 0.73, 0.09],
+    "MLLM -> GBT": [28.32, 99.80, 1.61, 0.75, 0.10],
+    "cVAE -> MLP": [34.58, 103.17, 7.57, 4.32, 0.54],
+    "w/o Energy optimizer": [94.95, 104.87, 14.77, 3.13, 0.03]
+  }
+}

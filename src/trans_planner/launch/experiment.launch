@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+  变形重复实验 (全自动版)。
+  说明：roslaunch 启动的节点 stdin 不连终端，无法读回车。
+        因此本 launch 强制 wait_enter:=false 做无人值守连跑。
+        若需「每次实验后按回车再继续」，请改用 scripts/run_experiment.sh。
+-->
+<launch>
+  <!-- 是否同时启动底层电机驱动 (实物默认 true)；若已单独启动可传 false -->
+  <arg name="start_dynamixel" default="true" />
+
+  <!-- 底层 dynamixel 驱动 (提供 /dynamixel_control/sync_write 与 /dynamixel_control/log) -->
+  <group if="$(arg start_dynamixel)">
+    <param name="/dynamixel_control/dyn_yaml_path"
+           value="$(find dynamixel_control)/config/dynamixel.yaml"/>
+    <node pkg="dynamixel_control" type="dynamixel_control_node"
+          name="dynamixel_control_node" output="screen" respawn="false"/>
+  </group>
+
+  <!-- 实验编排节点：私有命名空间加载 experiment.yaml -->
+  <node pkg="trans_planner" type="experiment.py" name="trans_experiment"
+        output="screen" required="true">
+    <rosparam command="load" file="$(find trans_planner)/config/experiment.yaml"/>
+    <param name="wait_enter" type="bool" value="false"/>
+  </node>
+</launch>
