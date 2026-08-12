@@ -42,7 +42,8 @@ downstream pipeline and evaluation protocol.
 | [`src/`](src/) | ROS packages for generation, optimization, kinematics, planning, sensing, simulation, and robot control |
 | [`MLLM/`](MLLM/) | Generic InternVL code and paper-specific requirement-vector inference interfaces |
 | [`MLLM/mima_requirement_vector/`](MLLM/mima_requirement_vector/README.md) | Full-MIMA and distilled service clients, RF/DT/GBT baselines, model documentation, and tests |
-| [`experiments/system_level_ablation/`](experiments/system_level_ablation/README.md) | Seven-method batch protocols, backend contract, table reconstruction, and tests |
+| [`experiments/system_level_ablation/`](experiments/system_level_ablation/README.md) | Seven-method batch protocols, backend contract, data-bundle table reconstruction, and tests |
+| [`experiments/module_level_ablation/`](experiments/module_level_ablation/README.md) | Configuration-generator component ablations, selected checkpoints, archived metrics, and evaluation code |
 | [`src/ros_mujoco/`](src/ros_mujoco/README.md) | MuJoCo replay and calibrated energy estimation |
 | [`runs/`](runs/) | Released calibration reports and supporting analysis code |
 | [`figure/`](figure/) | Repository figures |

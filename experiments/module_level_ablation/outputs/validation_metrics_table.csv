@@ -1,0 +1,5 @@
+﻿Method,Orientation (rad) ↓,Location (mm) ↓,Ql (rad) ↓,w x/y/z (mm) ↓,Achievement Rate ↑,Valid Rate ↑,Coverage@64 ↑,Diversity@64 ↑
+Full generator,0.02,1.62,0.01,3.78/2.96/1.39,84.91%,50.72%,51.04%,0.16
+Scale GNN -> MLP,0.23,6.74,0.01,3.78/2.09/1.81,39.62%,18.34%,22.66%,0.02
+CVAE -> MLP,0.21,24.88,0.19,88.40/21.90/15.34,72.64%,72.64%,4.16%,0.00
+CVAE+Scale GNN -> MLP,0.37,23.80,0.19,88.91/22.22/14.43,54.72%,54.72%,3.87%,0.00

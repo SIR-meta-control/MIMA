@@ -2,7 +2,15 @@ __pycache__/
 .vscode/
 .idea/
 .pytest_cache/
-.pytest_cache/
+
+# Separately distributed module-level ablation assets
+experiments/module_level_ablation/datasets/
+experiments/module_level_ablation/ckpts/
+experiments/module_level_ablation/reproduced/
+
+# Separately distributed system-level ablation assets
+experiments/system_level_ablation/data_bundle/
+experiments/system_level_ablation/reconstructed/
 
 # Generated MuJoCo energy-calibration artifacts
 runs/mujoco_experiment_energy*.json

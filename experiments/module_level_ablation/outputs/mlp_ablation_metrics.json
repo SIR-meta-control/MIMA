@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-10T16:19:40",
+  "model": "checkpoints/mlp_ablation/20260618_181743_vreq_direct_mlp/best_model.pt",
+  "model_family": "direct_mlp",
+  "scale_mode": "direct_mlp",
+  "method_name": "CVAE+Scale GNN -> MLP",
+  "validation_pairs": "datasets/processed_dataset/split_seed7_val20/val_pairs.jsonl",
+  "device": "cuda",
+  "thresholds": {
+    "quaternion_norm_max": 0.0001,
+    "spacing_rmse_max": 0.015,
+    "spacing_error_max": 0.03,
+    "geometry_error_max": 0.03,
+    "angle_rmse_max": 0.03,
+    "size_excess_max": 0.0001,
+    "task_excess_max": 0.0001
+  },
+  "reconstruction": {
+    "num_pairs": 117580,
+    "node_position_mae_mm": 23.797863851959164,
+    "node_position_mae_cm": 2.3797863851959162,
+    "node_position_rmse_cm": 4.65054462594461,
+    "node_position_mean_distance_cm": 5.664713016110307,
+    "node_rotation_mean_rad": 0.36660435759585475,
+    "node_rotation_mean_deg": 21.00488244134728,
+    "leg_angle_mae_rad": 0.18804066742531436,
+    "leg_angle_mae_deg": 10.773936620293652,
+    "scale_end_to_end": {
+      "num_examples": 117580,
+      "mae_cm": {
+        "x": 8.890584303339558,
+        "y": 2.2218476985106763,
+        "z": 1.4434916985736532
+      },
+      "rmse_cm": {
+        "x": 11.419122922068734,
+        "y": 4.102403010697885,
+        "z": 2.3857912844488536
+      },
+      "r2": {
+        "x": 0.32672346952554554,
+        "y": 0.9067993683367773,
+        "z": 0.8740786506820489
+      },
+      "within_2cm_rate": 0.08652832114305153
+    },
+    "scale_teacher": {},
+    "overall_valid_rate": 0.5951607416227249,
+    "constraint_pass_rates": {
+      "angle": 0.998265011056302,
+      "bar_type": 1.0,
+      "finite": 1.0,
+      "geometry": 0.5995322333730226,
+      "quaternion": 1.0,
+      "size": 0.9992855927878891,
+      "spacing": 0.9940381017179792,
+      "task": 1.0
+    },
+    "constraint_mean_errors": {
+      "angle_rmse": 0.008460822136735891,
+      "geometry_error_max": 0.09164912293488162,
+      "load_q2_excess": 0.0,
+      "pack_scale_excess": 0.0,
+      "quaternion_norm_error": 6.325959875421837e-09,
+      "size_excess_max": 1.76893121674264e-05,
+      "size_margin_min": 0.1426517720732646,
+      "spacing_error_max": 0.012419351241401637,
+      "spacing_rmse": 0.006488584518067629
+    },
+    "bar_prediction": {
+      "pair_weighted_accuracy": 0.7713131484946419,
+      "pair_weighted_nll": 0.46738213821892727
+    },
+    "num_unique_teacher_structures": 7099
+  },
+  "prior_generation": {
+    "overall": {
+      "num_queries": 106,
+      "samples_per_query": 64,
+      "num_samples": 6784,
+      "valid_sample_rate": 0.5471698113207547,
+      "success_at_64": 0.5471698113207547,
+      "mean_valid_count_per_query": 35.0188679245283,
+      "constraint_pass_rates": {
+        "angle": 0.9528301886792453,
+        "bar_type": 1.0,
+        "finite": 1.0,
+        "geometry": 0.6037735849056604,
+        "quaternion": 1.0,
+        "size": 0.9811320754716981,
+        "spacing": 0.8962264150943396,
+        "task": 1.0
+      },
+      "coverage_at_64": 0.03872325885091572,
+      "coverage_at_64_micro": 0.01849804388501446,
+      "coverage_threshold": 0.02,
+      "mean_gt_to_generated_distance": 0.12677186467399215,
+      "diversity_at_64": 0.0,
+      "queries_with_two_valid_rate": 0.5471698113207547,
+      "num_ground_truth_memberships": 117580
+    },
+    "by_task": {
+      "inspect": {
+        "num_queries": 22,
+        "samples_per_query": 64,
+        "num_samples": 1408,
+        "valid_sample_rate": 0.18181818181818182,
+        "success_at_64": 0.18181818181818182,
+        "mean_valid_count_per_query": 11.636363636363637,
+        "constraint_pass_rates": {
+          "angle": 0.8636363636363636,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.18181818181818182,
+          "quaternion": 1.0,
+          "size": 0.9545454545454546,
+          "spacing": 0.9090909090909091,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.002148676046665445,
+        "coverage_at_64_micro": 0.0027397260273972603,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.2827161268754439,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.18181818181818182,
+        "num_ground_truth_memberships": 30295
+      },
+      "load": {
+        "num_queries": 6,
+        "samples_per_query": 64,
+        "num_samples": 384,
+        "valid_sample_rate": 1.0,
+        "success_at_64": 1.0,
+        "mean_valid_count_per_query": 64.0,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 1.0,
+          "quaternion": 1.0,
+          "size": 1.0,
+          "spacing": 1.0,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.12512683402754324,
+        "coverage_at_64_micro": 0.1213903743315508,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.03863190482644474,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 1.0,
+        "num_ground_truth_memberships": 1870
+      },
+      "none": {
+        "num_queries": 77,
+        "samples_per_query": 64,
+        "num_samples": 4928,
+        "valid_sample_rate": 0.6233766233766234,
+        "success_at_64": 0.6233766233766234,
+        "mean_valid_count_per_query": 39.896103896103895,
+        "constraint_pass_rates": {
+          "angle": 0.974025974025974,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.7012987012987013,
+          "quaternion": 1.0,
+          "size": 0.987012987012987,
+          "spacing": 0.8831168831168831,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.04294329300006711,
+        "coverage_at_64_micro": 0.021910759181371742,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.11149364035423408,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.6233766233766234,
+        "num_ground_truth_memberships": 85118
+      },
+      "pack": {
+        "num_queries": 1,
+        "samples_per_query": 64,
+        "num_samples": 64,
+        "valid_sample_rate": 0.0,
+        "success_at_64": 0.0,
+        "mean_valid_count_per_query": 0.0,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.0,
+          "quaternion": 1.0,
+          "size": 1.0,
+          "spacing": 1.0,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.0,
+        "coverage_at_64_micro": 0.0,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.0,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.0,
+        "num_ground_truth_memberships": 297
+      }
+    },
+    "by_bar_type": {
+      "4-bar": {
+        "num_queries": 56,
+        "samples_per_query": 64,
+        "num_samples": 3584,
+        "valid_sample_rate": 0.23214285714285715,
+        "success_at_64": 0.23214285714285715,
+        "mean_valid_count_per_query": 14.857142857142858,
+        "constraint_pass_rates": {
+          "angle": 0.9107142857142857,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.25,
+          "quaternion": 1.0,
+          "size": 0.9821428571428571,
+          "spacing": 0.875,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.007619814322063009,
+        "coverage_at_64_micro": 0.005846696186750355,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.24189270128209683,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.23214285714285715,
+        "num_ground_truth_memberships": 69783
+      },
+      "6-bar": {
+        "num_queries": 35,
+        "samples_per_query": 64,
+        "num_samples": 2240,
+        "valid_sample_rate": 0.9714285714285714,
+        "success_at_64": 0.9714285714285714,
+        "mean_valid_count_per_query": 62.17142857142857,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 1.0,
+          "quaternion": 1.0,
+          "size": 0.9714285714285714,
+          "spacing": 1.0,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.03886599775504975,
+        "coverage_at_64_micro": 0.020497844527882076,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.07496025643835062,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.9714285714285714,
+        "num_ground_truth_memberships": 35955
+      },
+      "8-bar": {
+        "num_queries": 15,
+        "samples_per_query": 64,
+        "num_samples": 960,
+        "valid_sample_rate": 0.7333333333333333,
+        "success_at_64": 0.7333333333333333,
+        "mean_valid_count_per_query": 46.93333333333333,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 1.0,
+          "quaternion": 1.0,
+          "size": 1.0,
+          "spacing": 0.7333333333333333,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.15450972764898652,
+        "coverage_at_64_micro": 0.08697855092045263,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.06156185956581837,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.7333333333333333,
+        "num_ground_truth_memberships": 11842
+      }
+    }
+  },
+  "timing": {
+    "validation_reconstruction": {
+      "num_batches": 230,
+      "elapsed_seconds": 2.919640784999956,
+      "batches_per_second": 78.77681431964359
+    },
+    "prior_generation": {
+      "num_batches": 7,
+      "elapsed_seconds": 1.1079947400000947,
+      "batches_per_second": 6.317719522747375
+    }
+  }
+}

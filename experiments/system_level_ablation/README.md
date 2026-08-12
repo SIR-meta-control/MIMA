@@ -20,6 +20,22 @@ data bundle. Full-chain execution additionally requires the cVAE/MLP generator
 weights and implementations, requirement-vector sources, robot model, and
 energy model. Those assets are not silently inferred from repository layout.
 
+## Separately distributed data bundle
+
+The source repository does not contain the 587 MB experiment bundle. It is
+distributed separately and contains:
+
+- the fixed 107-sample sensor evaluation set;
+- row-level success, energy, and command-ready timing records;
+- frozen Full-MIMA and MLLM-distilled requirement-vector caches;
+- the reconstructed paper table and its full-precision audit report;
+- the original experiment code snapshot; and
+- a complete SHA-256 manifest.
+
+The bundle is sufficient for deterministic table reconstruction. It does not
+contain the hosted model services or every model weight needed to rerun the
+full chain from raw sensor inputs.
+
 ## Reported table
 
 The current protocol in `configs/paper_protocol.json` reconstructs:
@@ -111,7 +127,7 @@ server path is embedded in the script.
 
 ```bash
 python scripts/reproduce_table.py \
-  --bundle-dir /path/to/system_level_ablation_data \
+  --bundle-dir /path/to/data_bundle \
   --output-dir /path/to/reconstructed_table
 ```
 
@@ -127,6 +143,11 @@ The script validates:
 
 Outputs are `system_level_ablation_table.md`, a full-precision CSV, and
 `audit_report.json`.
+
+The bundle-root `reproduce_table.py` and
+`reproduction/reproduce_system_level_ablation.py` invoke the same current
+0.0105 m reconstruction. Historical experiment defaults are retained only
+inside the explicitly marked code snapshot and do not define reported values.
 
 ## Rerun success and energy
 
