@@ -16,14 +16,14 @@ Two workflows are intentionally separated:
    the same schema consumed by the reconstruction code.
 
 The reconstruction path is complete when used with the system-level ablation
-data bundle. Full-chain execution additionally requires the cVAE/MLP generator
-weights and implementations, requirement-vector sources, robot model, and
-energy model. Those assets are not silently inferred from repository layout.
+archive in [`../../data/`](../../data/README.md). Full-chain execution
+additionally requires the cVAE/MLP generator weights and implementations,
+requirement-vector sources, robot model, and energy model. Those assets are not
+silently inferred from repository layout.
 
-## Separately distributed data bundle
+## Data archive
 
-The source repository does not contain the 587 MB experiment bundle. It is
-distributed separately and contains:
+The Git LFS archive `data/system_level_ablation_assets.zip` contains:
 
 - the fixed 107-sample sensor evaluation set;
 - row-level success, energy, and command-ready timing records;
@@ -122,13 +122,15 @@ device.
 
 ## Reconstruct the table
 
-The data bundle and output directory are mandatory arguments. No local or
-server path is embedded in the script.
+Extract `data/system_level_ablation_assets.zip`. The bundle directory is the
+extracted directory that contains `reproduce_table.py`. The bundle and output
+directories are mandatory arguments; no machine-specific path is embedded in
+the script.
 
 ```bash
 python scripts/reproduce_table.py \
-  --bundle-dir /path/to/data_bundle \
-  --output-dir /path/to/reconstructed_table
+  --bundle-dir "$SYSTEM_ABLATION_BUNDLE" \
+  --output-dir "$TABLE_OUTPUT"
 ```
 
 The script validates:
@@ -190,7 +192,7 @@ recorded in [`IMPLEMENTATION_MAP.md`](IMPLEMENTATION_MAP.md).
 
 ## Why the archived snapshot is not copied verbatim
 
-The original research snapshot remains in the raw-data bundle for provenance.
+The original research snapshot remains in the data archive for provenance.
 Several scripts contained private network defaults, historical output paths,
 dated checkpoint locations, and assumptions about an `external/KT_GVAE`
 checkout. Copying those files into the public source tree would create a

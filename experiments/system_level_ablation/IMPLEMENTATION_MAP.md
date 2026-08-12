@@ -1,8 +1,9 @@
 # Archived-to-Public Implementation Map
 
-The row-level data bundle retains the original research snapshot for exact
-provenance. The public repository organizes the maintained implementation by
-responsibility instead of reproducing that snapshot's directory assumptions.
+The system-level archive under [`../../data/`](../../data/README.md) retains the
+original research snapshot for exact provenance. The public repository
+organizes the maintained implementation by responsibility instead of
+reproducing that snapshot's directory assumptions.
 
 | Archived responsibility | Maintained location | Status |
 |---|---|---|
@@ -36,8 +37,8 @@ required by the selected methods are set.
 
 ## Reproducibility levels
 
-- **Table-level reproduction:** complete from the separately released
-  row-level data bundle. It verifies input hashes, coverage, formulas, and final
+- **Table-level reproduction:** complete from the repository's Git LFS data
+  archive. It verifies input hashes, coverage, formulas, and final
   rounded values.
 - **Baseline requirement inference:** complete for RF, DT, and GBT using the
   released weights under `MLLM/mima_requirement_vector/`.

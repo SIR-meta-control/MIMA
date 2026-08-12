@@ -47,12 +47,16 @@ downstream pipeline and evaluation protocol.
 | [`src/ros_mujoco/`](src/ros_mujoco/README.md) | MuJoCo replay and calibrated energy estimation |
 | [`runs/`](runs/) | Released calibration reports and supporting analysis code |
 | [`figure/`](figure/) | Repository figures |
+| [`data/`](data/README.md) | Git LFS archives for Figure 4, module-level ablation, and system-level ablation evidence |
 
-The source tree does not claim to distribute every trained asset used in the paper.
-In particular, the hosted Full-MIMA teacher service, the adopted distilled service,
-and all trained cVAE/MLP assets required for an exact full-chain rerun must be supplied
-explicitly. The conventional RF, DT, and GBT baseline weights are included in the
-requirement-vector module. See the module READMEs for the precise release boundary.
+The repository includes the experimental data archives under `data/`, while the
+hosted Full-MIMA teacher and adopted distilled services are not distributed as local
+services. An exact full-chain rerun therefore requires compatible requirement-vector
+services and a configured full-chain backend with the dependencies identified by the
+system-level experiment interface. The conventional RF, DT, and GBT baseline weights
+are included in the requirement-vector module. Deterministic reconstruction of the
+reported tables does not require those services. See the data and module READMEs for
+the precise release boundary.
 
 ## Installation
 
@@ -186,17 +190,20 @@ Two reproduction levels are intentionally separate.
 
 Table reconstruction reads the released row-level records. It does not call the teacher
 or distilled services and does not rerun the generator, energy model, or simulation.
-From the repository root, run:
+Extract `data/system_level_ablation_assets.zip` and set
+`SYSTEM_ABLATION_BUNDLE` to the extracted directory containing
+`reproduce_table.py`. From the repository root, run:
 
 ```bash
 python3 experiments/system_level_ablation/scripts/reproduce_table.py \
-  --bundle-dir "$DATA_BUNDLE" \
+  --bundle-dir "$SYSTEM_ABLATION_BUNDLE" \
   --output-dir "$TABLE_OUTPUT"
 ```
 
 The reconstruction validates input hashes, sample IDs, seeds, timing coverage,
 finite-energy counts, the derived tolerance, and all reported values after paper-level
-rounding. The released data bundle is documented by its included README.
+rounding. Archive contents and checksums are documented in the
+[data README](data/README.md).
 
 ### Rerun from raw sensor inputs
 

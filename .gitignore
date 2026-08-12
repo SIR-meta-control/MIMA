@@ -3,12 +3,12 @@ __pycache__/
 .idea/
 .pytest_cache/
 
-# Separately distributed module-level ablation assets
+# Extracted module-level ablation assets and generated outputs
 experiments/module_level_ablation/datasets/
 experiments/module_level_ablation/ckpts/
 experiments/module_level_ablation/reproduced/
 
-# Separately distributed system-level ablation assets
+# Extracted system-level ablation assets and generated outputs
 experiments/system_level_ablation/data_bundle/
 experiments/system_level_ablation/reconstructed/
 

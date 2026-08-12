@@ -27,10 +27,12 @@ outputs/      archived metric JSON files and the exported comparison table
 scripts/      data preparation, training, evaluation, and inference entry points
 ```
 
-The large `datasets/` directory and the complete checkpoint archives are
-distributed separately. Copy `datasets/` into this module before model
-reevaluation or training. The four selected `best_model.pt` states required
-for reevaluation are already included under `checkpoints/selected/`.
+The complete datasets and checkpoint histories are provided in
+`data/module_level_ablation_assets.zip`, tracked with Git LFS. Extract the
+archive to a temporary location and copy its `datasets/` directory into this
+module before model reevaluation or training. The four selected `best_model.pt`
+states required for reevaluation are already included under
+`checkpoints/selected/`.
 
 ## Metrics
 
@@ -76,8 +78,8 @@ The generated table must match `outputs/validation_metrics_table.csv`.
 
 ### Reevaluate the selected checkpoints
 
-Install the dependencies, place the separately distributed `datasets/` at the
-module root, and run from this directory:
+Install the dependencies, place `datasets/` from the repository data archive at
+the module root, and run from this directory:
 
 ```bash
 python reevaluate.py --device auto
@@ -88,10 +90,10 @@ behavior can affect sampled set metrics even with a fixed seed.
 
 ### Retrain the architectures
 
-Training requires the separately distributed raw and processed datasets. The
-training entry points are under `scripts/train/`, and the shell wrappers are
-under `scripts/runners/`. Retraining creates new checkpoints and is not a
-deterministic reconstruction of the archived outputs.
+Training requires the raw and processed datasets in the repository data
+archive. The training entry points are under `scripts/train/`, and the shell
+wrappers are under `scripts/runners/`. Retraining creates new checkpoints and
+is not a deterministic reconstruction of the archived outputs.
 
 ## Evidence boundary
 
@@ -110,6 +112,6 @@ held-out partition must be populated from a reevaluation using
 
 ## Integrity
 
-`MANIFEST.sha256` records every repository-distributed research artifact. The
-separately distributed assets include their own manifest. Paths in both
+`MANIFEST.sha256` records every source-tree research artifact. The Git LFS data
+archive includes its own manifest. Paths in both
 manifests are relative to their respective roots.
