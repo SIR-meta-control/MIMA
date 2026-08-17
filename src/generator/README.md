@@ -1,175 +1,264 @@
-# generator
+# GVAE Generator Service
 
-ROS 1 package that runs **learned robot-topology generation** in the loop: it subscribes to a compact **detection / requirement vector**, runs a PyTorch model (`RobotConfigurationNet`), and publishes a list of candidate **topological graphs** (nodes, edges, adjacency, and global leg/scale features) as `meta_msgs` messages for downstream planning or visualization.
+This ROS 1 package integrates the current constraint-aware GVAE structure
+generator into MIMA. Model inference runs in a standalone HTTP service, while a
+lightweight ROS adapter translates requirement-vector topics into service calls
+and publishes valid candidates as `meta_msgs/TopoList`.
 
----
+The process boundary is intentional: the model service owns PyTorch, CUDA, the
+generator weights, graph imputation, hard constraints, ranking, and diversity;
+the ROS process requires only `rospy`, `std_msgs`, `meta_msgs`, and Python's
+standard HTTP library.
 
-## Overview
+## Runtime Architecture
 
-- **Role**: Bridge between a perception or task-specification pipeline (8-D `Float32MultiArray`) and the rest of the stack that consumes `meta_msgs/TopoList`.
-- **Model**: Variational encoder–decoder with graph convolutional readout, bar-linkage conditioning (`4-bar` / `6-bar` / `8-bar`), and optional confidence scores. At runtime the node calls `forward(..., train=False)` to draw multiple diverse configurations per input message.
-- **Artifacts**: Weights are loaded from a PyTorch checkpoint; graph kinematic priors are loaded from `graph_imputation.npy` (path comes from checkpoint `args` or defaults).
+```text
+MIMA requirement vector topic
+  [wp, hp, dp, hs, fl, fi, fp]
+                 |
+                 | drop hs; reorder dimensions
+                 v
+GVAE request [dp, wp, hp, load, inspect, pack]
+                 |
+                 | POST /generate
+                 v
+         GVAE HTTP service
+  CVAE -> Scale GNN -> graph imputation
+  -> hard constraints -> score -> diversity
+                 |
+                 | JSON Top-K candidates
+                 v
+          ROS adapter node
+                 |
+                 v
+       /generated_topolist
+```
 
-This package does **not** implement offline dataset loading, train/validation splitting, or training loops in the ROS nodes—those belong to your external training codebase. The sections below describe **runtime** conditioning and tensor-to-message assembly only.
+The service also accepts the native six-dimensional GVAE vector directly.
 
----
+## Included Model
+
+The old `RobotConfigurationNet` implementation and
+`graph_imputation.npy` have been retired. The package now contains:
+
+```text
+generation/
+  gvae/                         current GVAE Python package
+  graph_imputation.yaml         deterministic graph transforms
+  checkpoints/
+    full_generator.pt           CVAE + Scale GNN checkpoint
+    bar_classifier.pt           p(bar_type | vreq) checkpoint
+  runtime.py                    persistent Top-K inference engine
+  service_contract.py           request/response validation and vector mapping
+  service_client.py             standard-library HTTP client
+scripts/
+  generator_service.py          HTTP model server
+  robot_config_generator.py     ROS-to-HTTP adapter
+```
+
+The full generator predicts eight node poses and three leg angles. Scale is
+estimated by the topology-aware GNN. Edges and leg bases are recovered through
+the fixed YAML transforms, and only candidates passing all quaternion, spacing,
+bar geometry, angle, size, and task checks are returned.
+
+## Requirement-Vector Mapping
+
+MIMA supplies:
+
+```text
+[wp_m, hp_m, dp_m, hs_m, fl, fi, fp]
+```
+
+GVAE consumes:
+
+```text
+[x, y, z, load, inspect, pack]
+```
+
+The fixed adapter is:
+
+```text
+x       = dp_m
+y       = wp_m
+z       = hp_m
+load    = fl
+inspect = fi
+pack    = fp
+```
+
+`hs_m` is deliberately ignored. It is not added to another dimension and does
+not modify any model input, threshold, or task flag.
 
 ## Dependencies
 
-### ROS
+Model-service environment:
 
-- **ROS 1** with **catkin** (e.g. Melodic or Noetic).
-- **Catkin packages** (from `package.xml` / Python imports):
-  - `rospy`
-  - `std_msgs`
-  - `sensor_msgs` (declared in `package.xml`; not required by the Python nodes reviewed here)
-  - **`meta_msgs`** — message types `TopologicalGraph`, `TopoList`, `Global` (used by the generator; ensure this package is in your workspace and that `package.xml` lists `meta_msgs` if you rely on `rosdep`).
+- Python 3.10 or newer
+- PyTorch
+- NumPy
 
-> **Note:** `CMakeLists.txt` lists `meta_msgs` in `find_package(catkin ...)`, but `package.xml` does not declare it yet. Add `<depend>meta_msgs</depend>` (or split build/exec depends) for a consistent workspace build.
+ROS adapter environment:
 
-### Python (runtime)
+- ROS 1 and catkin
+- `rospy`
+- `std_msgs`
+- `meta_msgs`
 
-- **PyTorch** (`torch`)
-- **NumPy** (`numpy`)
-- **PyTorch Geometric** (`torch_geometric`) — `GCNConv`, `Data`, `Batch`, `global_mean_pool`
-
-### Other launch dependencies (optional demo)
-
-`launch/main.launch` **includes** additional packages (`test_dyn`, `optimizer`, `kinematics_interpreter`, `trans_planner`). Those are only required if you run that full launch file as-is.
-
----
-
-## Installation
-
-1. Place the package under your Catkin workspace source tree, for example:
-
-   `catkin_ws/src/generator`
-
-2. Ensure `meta_msgs` (and any packages from your demo launch) are present in the same workspace.
-
-3. Build:
-
-   ```bash
-   cd ~/catkin_ws
-   catkin_make   # or catkin build
-   source devel/setup.bash
-   ```
-
-4. **Python environment**: The repository scripts use machine-specific shebangs (e.g. a fixed Conda path). For portability, run nodes with the interpreter that has PyTorch and PyTorch Geometric installed, or adjust shebangs / use `rosrun` after `chmod +x` on the scripts.
-
-5. **Checkpoint and graph file**: Place your trained `*.pt` checkpoint where your parameters point (see `launch/main.launch` for an example). The checkpoint may embed `args` including `graph_imputation_path`; if that path is relative, it is resolved under `generator/generation/`.
-
----
-
-## Usage
-
-### Launch file (full stack example)
+Build the ROS workspace normally:
 
 ```bash
-roslaunch generator main.launch
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make -DCMAKE_BUILD_TYPE=Release
+source devel/setup.bash
 ```
 
-This launch file starts `generator_node`, a delayed `manual_publisher`, and several **external** nodes from other packages. Inspect `launch/main.launch` and trim includes if you only need the generator.
+## Start the Model Service
 
-The `<rosparam param="detection_vector">...</rosparam>` entry in that file is **not** read by `generator_node`; the demo supplies input by publishing on `detection_vector_topic` (e.g. via `manual_publisher`).
-
-### Run the generator node directly
+Activate the Python environment containing PyTorch and run:
 
 ```bash
-rosrun generator main.py
+conda activate gvae
+python3 src/generator/scripts/generator_service.py \
+  --host 127.0.0.1 \
+  --port 8091 \
+  --device auto
 ```
 
-Set private parameters (see **Nodes** → `generator_node`) for `model_path`, topics, and `num_configs`.
-
-### Manual test publisher
+The default artifacts are resolved relative to this package. Override them only
+when testing another checkpoint:
 
 ```bash
-rosrun generator manual_publisher.py
+python3 src/generator/scripts/generator_service.py \
+  --model src/generator/generation/checkpoints/full_generator.pt \
+  --bar-classifier src/generator/generation/checkpoints/bar_classifier.pt \
+  --graph-imputation src/generator/generation/graph_imputation.yaml \
+  --device cuda
 ```
 
-Publishes a single hard-coded `Float32MultiArray` on `/detection/vector/manually` (see script for default values).
+Check readiness:
 
-### Alternate entry point
+```bash
+curl http://127.0.0.1:8091/health
+```
 
-`scripts/robot_config_generator.py` can also be run as a standalone node (`robot_config_generator`) with the same `RobotConfigGenerator` logic as `node/main.py`.
+The model is loaded once at startup. Requests are serialized around inference
+to preserve deterministic seed behavior and avoid concurrent mutation of the
+PyTorch random-number state.
 
----
+## HTTP API
 
-## Data conditioning, sampling, and message assembly
+### `GET /health`
 
-### Input vector (`Float32MultiArray`)
+Returns service status, model family, scale mode, artifact names, device, and
+uptime.
 
-- The subscriber receives a **flat list of floats** copied into `vreq` and wrapped as a batch of shape `(1, 8)`.
-- In **training code** (`generation/model.py`, `determine_bar_from_vreq`), indices **5–7** are interpreted as task flags (inspect / load / pack). The **ROS inference path** uses `train=False`, where each candidate configuration samples a **random** bar type (`4-bar`, `6-bar`, `8-bar`) per draw; the full vector still conditions the VAE-style encoders.
+### `POST /generate`
 
-### “Preprocessing” inside the node
+Native GVAE request:
 
-1. **Load checkpoint** → restore `model_state_dict` and optional `args` (`batch_size`, `graph_imputation_path`, etc.).
-2. **Load graph imputation** (`.npy`) → tensors `T_node_leg`, `T_node_edge`, `S_edge_spacing` used for edge/leg frame propagation inside the network.
-3. **Forward** with `train=False` → `num_configs` stochastic samples (manual seed from time + small Gaussian jitter on latents).
-4. **Post-process tensors** → each sample is converted to `meta_msgs/TopologicalGraph`:
-   - `nodes` / `edges`: `Float32MultiArray` with layout **8×7** (position + quaternion per row).
-   - `adjacency`: float list encoding linkage pattern (depends on inferred `bar` string).
-   - `feature` (`meta_msgs/Global`): `scale`, `leg_angles`, `leg_base` (4×7 layout), `locomotion_mode` set to `0` in the current code.
+```json
+{
+  "vreq": [0.8, 0.6, 0.5, 0, 0, 0],
+  "bar_types": "auto",
+  "samples_per_bar": 64,
+  "top_k": 10,
+  "temperature": 1.0,
+  "diversity_threshold": 0.02,
+  "min_per_bar": 1,
+  "seed": 7
+}
+```
 
-### Train/validation split
+Named MIMA request is also accepted and uses the same `hs_m`-dropping mapping:
 
-Not implemented in this ROS package. Training uses `forward(..., train=True)` with ground-truth `nodes`, `leg_angle`, and `bar_list` in your external training scripts; dataset splits belong there.
+```json
+{
+  "v_r": {
+    "wp_m": 0.6,
+    "hp_m": 0.5,
+    "dp_m": 0.8,
+    "hs_m": 0.2,
+    "fl": 0,
+    "fi": 0,
+    "fp": 0
+  },
+  "samples_per_bar": 64,
+  "top_k": 10,
+  "seed": 7
+}
+```
 
----
+The response contains bar probabilities, sampling and rejection summaries,
+hard-constraint thresholds, inference time, and ranked candidates. Each
+candidate includes full `nodes`, 8-column `edges` (angle plus pose), `scale`,
+`leg_base`, `leg_angle`, scores, and constraint residuals.
 
-## Nodes
+Invalid input returns HTTP 400. Model failures return HTTP 500. A valid request
+may return an empty candidate list when no sample passes every hard constraint.
 
-### `generator_node` (`node/main.py`)
+## Start the ROS Adapter
 
-Main inference node wrapping `RobotConfigGenerator`.
+Start the service first, then source the ROS workspace and launch only the
+adapter:
+
+```bash
+roslaunch generator generator_client.launch \
+  generator_service_url:=http://127.0.0.1:8091 \
+  requirement_vector_topic:=/requirement/vector \
+  generated_configs_topic:=/generated_topolist
+```
+
+The complete legacy stack can be launched with:
+
+```bash
+roslaunch generator main.launch \
+  generator_service_url:=http://127.0.0.1:8091
+```
+
+No manual publisher is started or installed. A real requirement-vector
+producer must publish a 6-D or 7-D `std_msgs/Float32MultiArray` on the configured
+input topic.
+
+## ROS Interface
 
 | Direction | Name | Type |
-|-----------|------|------|
-| **Subscribes** | `~detection_vector_topic` (default `/detection/vector`) | `std_msgs/Float32MultiArray` |
-| **Publishes** | `~generated_configs_topic` (default `/generated_topolist`) | `meta_msgs/TopoList` |
+| --- | --- | --- |
+| Subscribe | `~requirement_vector_topic` | `std_msgs/Float32MultiArray` |
+| Publish | `~generated_configs_topic` | `meta_msgs/TopoList` |
 
-**Parameters** (private, `~` namespace):
+Private parameters:
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `model_path` | `""` | Path to PyTorch checkpoint (**required**; node logs error and aborts setup if empty or missing). |
-| `num_configs` | `10` | Number of candidate graphs sampled per input message. |
-| `detection_vector_topic` | `/detection/vector` | Input topic name. |
-| `generated_configs_topic` | `/generated_topolist` | Output topic name. |
+| Parameter | Default | Meaning |
+| --- | --- | --- |
+| `service_url` | `http://127.0.0.1:8091` | GVAE HTTP service base URL |
+| `service_timeout_s` | `120.0` | Per-request HTTP timeout |
+| `samples_per_bar` | `64` | Latent samples generated for each selected bar type |
+| `top_k` | `10` | Maximum valid candidates published |
+| `bar_types` | `auto` | `auto`, `all`, or comma-separated bar names |
+| `temperature` | `1.0` | Conditional-prior sampling temperature |
+| `diversity_threshold` | `0.02` | Minimum normalized distance during Top-K selection |
+| `min_per_bar` | `1` | Minimum retained candidate per sampled bar type when possible |
+| `seed` | `7` | Reproducible service sampling seed |
+| `requirement_vector_topic` | `/requirement/vector` | Input topic |
+| `generated_configs_topic` | `/generated_topolist` | Output topic |
 
-**Services:** none.
+The HTTP response preserves each edge as
+`[angle, x, y, z, qw, qx, qy, qz]`. The ROS adapter intentionally publishes
+`[x, y, z, qw, qx, qy, qz]` because the current kinematics interpreter runs
+with `flag_test=false` and expects seven edge-pose columns.
 
----
+## Focused Validation
 
-### `manual_detection_publisher` (`scripts/manual_publisher.py`)
+Run the service-contract tests without ROS:
 
-One-shot helper for testing.
+```bash
+python3 -m unittest discover -s src/generator/test -v
+```
 
-| Direction | Name | Type |
-|-----------|------|------|
-| **Publishes** | `/detection/vector/manually` | `std_msgs/Float32MultiArray` |
+For an end-to-end check, start the model service and submit a small request:
 
-**Parameters:** none (topic and payload are hard-coded in the script).
-
-**Services:** none.
-
----
-
-### `robot_config_generator` (optional; `scripts/robot_config_generator.py` `__main__`)
-
-Same behavior and interface as `generator_node` (same class and parameters). Useful if you install/run the script directly instead of `node/main.py`.
-
----
-
-## Message summary
-
-- **`meta_msgs/TopoList`**: `TopologicalGraph[] graphs`
-- **`meta_msgs/TopologicalGraph`**: `nodes`, `edges`, `adjacency` (`std_msgs/Float32MultiArray`), `feature` (`meta_msgs/Global`)
-- **`meta_msgs/Global`**: `float32[] scale`, `leg_base` (`Float32MultiArray`), `float32[] leg_angles`, `uint8 locomotion_mode`
-
----
-
-## License
-
-See `package.xml` (`license` field is currently a placeholder).
+```bash
+curl -X POST http://127.0.0.1:8091/generate \
+  -H 'Content-Type: application/json' \
+  -d '{"vreq":[0.8,0.6,0.5,0,0,0],"samples_per_bar":2,"top_k":1,"seed":7}'
+```

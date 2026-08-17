@@ -1,20 +1,16 @@
-#!/home/inron/software/anaconda3/envs/mira/bin/python
+#!/usr/bin/env python3
+"""Compatibility entry point for the generator ROS adapter."""
+
+from pathlib import Path
 import sys
-import os
-import rospy
 
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-package_dir = os.path.dirname(current_dir)
-scripts_path = os.path.join(package_dir, "scripts")
-sys.path.insert(0, scripts_path)
+SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 
-from robot_config_generator import RobotConfigGenerator
+from robot_config_generator import main
 
 
 if __name__ == "__main__":
-    rospy.init_node("generator_node", anonymous=True)
-
-    generator = RobotConfigGenerator()
-
-    generator.run()
+    main()

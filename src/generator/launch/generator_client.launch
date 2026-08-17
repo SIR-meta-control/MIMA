@@ -7,11 +7,6 @@
     <arg name="top_k" default="10" />
     <arg name="seed" default="7" />
 
-    <include file="$(find test_dyn)/launch/pos.launch" />
-    <include file="$(find optimizer)/launch/optimizer.launch" />
-    <include file="$(find kinematics_interpreter)/launch/main.launch" />
-    <include file="$(find trans_planner)/launch/real.launch" />
-
     <node name="generator_node" pkg="generator" type="robot_config_generator.py" output="screen">
         <param name="service_url" value="$(arg generator_service_url)" />
         <param name="requirement_vector_topic" value="$(arg requirement_vector_topic)" />
@@ -25,6 +20,4 @@
         <param name="seed" value="$(arg seed)" />
         <param name="service_timeout_s" value="120.0" />
     </node>
-
-    <node name="message_saver" pkg="test_dyn" type="message_saver.py" output="screen" />
 </launch>

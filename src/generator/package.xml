@@ -2,7 +2,7 @@
 <package format="2">
   <name>generator</name>
   <version>0.0.0</version>
-  <description>The generator package</description>
+  <description>HTTP-served GVAE structure generation with a ROS topic adapter.</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -13,7 +13,7 @@
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
+  <license>GPL-3.0</license>
 
 
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
@@ -49,20 +49,9 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>sensor_msgs</build_depend>
-
-  <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>rospy</build_export_depend>
-  <build_export_depend>std_msgs</build_export_depend>
-  <build_export_depend>sensor_msgs</build_export_depend>
-
-  <exec_depend>roscpp</exec_depend>
-  <exec_depend>rospy</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
+  <depend>meta_msgs</depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
