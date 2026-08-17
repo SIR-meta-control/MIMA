@@ -15,6 +15,8 @@ git lfs pull
 | `experiment_fig_4.zip` | 11,058,934 | Raw ROS bags and exported CSV records supporting the Figure 4 robot experiments and speed trials | `474be9d9357fccdbbda9b36154109dcb75a9819d8d12e211a21c48975c1ed1a4` |
 | `module_level_ablation_assets.zip` | 210,109,010 | Raw and processed configuration-generator datasets, training splits, selected runs, checkpoint histories, and integrity metadata | `06d833abda324f3d8bbac558f565e9d779c99866ecba3c0032ba6f9ba7c79cfc` |
 | `system_level_ablation_assets.zip` | 208,664,678 | Fixed sensor evaluation set, row-level success, energy and timing records, requirement-vector caches, provenance snapshot, reconstruction scripts, and integrity metadata | `9ad74ee05c2423c101b5ff872d34b6e59f7c35ec773c8c8140c2cff794ea339d` |
+| `Supplementary Method 9.2.zip` | 263,958 | Record-level latency, resource-monitoring, stability, communication-loss, and onboard-validation data for Supplementary Method 9.2 | `fa5d82007f2e31d4942d9e36367be26505e13c64bcbd6b04134ef18f3b5ba283` |
+| `Supplementary Method 6.3.zip` | 14,365,363 | Real-robot and calibrated MuJoCo transformation commands, motor measurements, and energy-verification records for Supplementary Method 6.3 | `0d0e6a0916a34a96bd41ca49d9a6c14c0f69336c0e1613dcce66b20fa70ccece` |
 
 The hashes are also provided in `SHA256SUMS`. Verify the archives from this
 directory with:
