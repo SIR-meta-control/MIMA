@@ -12,6 +12,7 @@ git lfs pull
 
 | Archive | Size (bytes) | Contents | SHA-256 |
 | --- | ---: | --- | --- |
+| `Figure 2.zip` | 13,700 | MATLAB-derived Figure 2c and 2d spline samples and keypoints, with record manifests, source-script hashes, and integrity metadata | `91e6615f4a79011e4de1aa99bf53c98eeea5bcac4c35be8bddbd820080573b7d` |
 | `experiment_fig_4.zip` | 11,058,934 | Raw ROS bags and exported CSV records supporting the Figure 4 robot experiments and speed trials | `474be9d9357fccdbbda9b36154109dcb75a9819d8d12e211a21c48975c1ed1a4` |
 | `module_level_ablation_assets.zip` | 210,109,010 | Raw and processed configuration-generator datasets, training splits, selected runs, checkpoint histories, and integrity metadata | `06d833abda324f3d8bbac558f565e9d779c99866ecba3c0032ba6f9ba7c79cfc` |
 | `system_level_ablation_assets.zip` | 208,664,678 | Fixed sensor evaluation set, row-level success, energy and timing records, requirement-vector caches, provenance snapshot, reconstruction scripts, and integrity metadata | `9ad74ee05c2423c101b5ff872d34b6e59f7c35ec773c8c8140c2cff794ea339d` |
