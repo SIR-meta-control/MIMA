@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="kin_pub_node" pkg="kinematics_interpreter" type="test_optimal_topo_publisher.py" output="screen">
+    </node>
+</launch>

@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-13T21:09:29",
+  "model": "checkpoints/cvae_mlp_ablation/20260618_172609_all_mlp_scale/best_model.pt",
+  "model_family": "conditional_structure_vae",
+  "scale_mode": "mlp",
+  "method_name": "Scale GNN -> MLP",
+  "validation_pairs": "datasets/processed_dataset/split_seed7/val_pairs.jsonl",
+  "device": "cuda",
+  "thresholds": {
+    "quaternion_norm_max": 0.0001,
+    "spacing_rmse_max": 0.015,
+    "spacing_error_max": 0.03,
+    "geometry_error_max": 0.03,
+    "angle_rmse_max": 0.03,
+    "size_excess_max": 0.0001,
+    "task_excess_max": 0.0001
+  },
+  "reconstruction": {
+    "num_pairs": 59200,
+    "node_position_mae_mm": 6.723446957431398,
+    "node_position_mae_cm": 0.6723446957431398,
+    "node_position_rmse_cm": 1.9572297396092841,
+    "node_position_mean_distance_cm": 1.4282060493085835,
+    "node_rotation_mean_rad": 0.23342575425326395,
+    "node_rotation_mean_deg": 13.37431054836995,
+    "leg_angle_mae_rad": 0.006538638586036836,
+    "leg_angle_mae_deg": 0.3746363947412989,
+    "scale_end_to_end": {
+      "num_examples": 59200,
+      "mae_cm": {
+        "x": 0.37841016356204005,
+        "y": 0.20127957168261748,
+        "z": 0.17762066962549816
+      },
+      "rmse_cm": {
+        "x": 0.4604275644752058,
+        "y": 0.2933178196737343,
+        "z": 0.2592439967871052
+      },
+      "r2": {
+        "x": 0.9989161309418124,
+        "y": 0.999527260288548,
+        "z": 0.9985022691444578
+      },
+      "within_2cm_rate": 0.9980912162162162
+    },
+    "scale_teacher": {
+      "num_examples": 3549,
+      "mae_cm": {
+        "x": 0.26478294790143797,
+        "y": 0.19001620156424387,
+        "z": 0.15039589664371092
+      },
+      "rmse_cm": {
+        "x": 0.3689472858207444,
+        "y": 0.2726781172299627,
+        "z": 0.2133973886847362
+      },
+      "r2": {
+        "x": 0.9990714787212631,
+        "y": 0.9996035697364737,
+        "z": 0.9990593407094338
+      },
+      "within_2cm_rate": 0.9985911524373062
+    },
+    "overall_valid_rate": 0.40070945945945946,
+    "constraint_pass_rates": {
+      "angle": 0.9967567567567568,
+      "bar_type": 1.0,
+      "finite": 1.0,
+      "geometry": 0.40547297297297297,
+      "quaternion": 1.0,
+      "size": 0.9919594594594595,
+      "spacing": 0.9991216216216217,
+      "task": 0.9999831081081081
+    },
+    "constraint_mean_errors": {
+      "angle_rmse": 0.006772893829321539,
+      "geometry_error_max": 0.08856064612398276,
+      "load_q2_excess": 0.0,
+      "pack_scale_excess": 4.707458051475319e-09,
+      "quaternion_norm_error": 5.6493523958567024e-09,
+      "size_excess_max": 1.9615261337241613e-05,
+      "size_margin_min": 0.11294562307563988,
+      "spacing_error_max": 0.005786564630028364,
+      "spacing_rmse": 0.002673738582714184
+    },
+    "num_unique_teacher_structures": 3549
+  },
+  "prior_generation": {
+    "overall": {
+      "num_queries": 104,
+      "samples_per_query": 64,
+      "num_samples": 6656,
+      "valid_sample_rate": 0.18885216346153846,
+      "success_at_64": 0.38461538461538464,
+      "mean_valid_count_per_query": 12.086538461538462,
+      "constraint_pass_rates": {
+        "angle": 0.9672475961538461,
+        "bar_type": 1.0,
+        "finite": 1.0,
+        "geometry": 0.4773137019230769,
+        "quaternion": 1.0,
+        "size": 0.4950420673076923,
+        "spacing": 0.9439603365384616,
+        "task": 0.9507211538461539
+      },
+      "coverage_at_64": 0.21745983591241233,
+      "coverage_at_64_micro": 0.24006756756756756,
+      "coverage_threshold": 0.02,
+      "mean_gt_to_generated_distance": 0.022853023703915388,
+      "diversity_at_64": 0.024959365407434795,
+      "queries_with_two_valid_rate": 0.3557692307692308,
+      "num_ground_truth_memberships": 59200
+    },
+    "by_task": {
+      "inspect": {
+        "num_queries": 21,
+        "samples_per_query": 64,
+        "num_samples": 1344,
+        "valid_sample_rate": 0.0,
+        "success_at_64": 0.0,
+        "mean_valid_count_per_query": 0.0,
+        "constraint_pass_rates": {
+          "angle": 0.984375,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.0,
+          "quaternion": 1.0,
+          "size": 0.5401785714285714,
+          "spacing": 0.9769345238095238,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.0,
+        "coverage_at_64_micro": 0.0,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.0,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.0,
+        "num_ground_truth_memberships": 15306
+      },
+      "load": {
+        "num_queries": 6,
+        "samples_per_query": 64,
+        "num_samples": 384,
+        "valid_sample_rate": 0.15364583333333334,
+        "success_at_64": 1.0,
+        "mean_valid_count_per_query": 9.833333333333334,
+        "constraint_pass_rates": {
+          "angle": 0.9348958333333334,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.9895833333333334,
+          "quaternion": 1.0,
+          "size": 0.71875,
+          "spacing": 0.8671875,
+          "task": 0.2838541666666667
+        },
+        "coverage_at_64": 0.6327096415082338,
+        "coverage_at_64_micro": 0.6481283422459893,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.02034221371227407,
+        "diversity_at_64": 0.05909002758562565,
+        "queries_with_two_valid_rate": 1.0,
+        "num_ground_truth_memberships": 935
+      },
+      "none": {
+        "num_queries": 76,
+        "samples_per_query": 64,
+        "num_samples": 4864,
+        "valid_sample_rate": 0.24629934210526316,
+        "success_at_64": 0.4473684210526316,
+        "mean_valid_count_per_query": 15.763157894736842,
+        "constraint_pass_rates": {
+          "angle": 0.9646381578947368,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.5750411184210527,
+          "quaternion": 1.0,
+          "size": 0.4691611842105263,
+          "spacing": 0.940172697368421,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.24762585639265108,
+        "coverage_at_64_micro": 0.31782293856575566,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.02295725988818786,
+        "diversity_at_64": 0.029489918906045586,
+        "queries_with_two_valid_rate": 0.40789473684210525,
+        "num_ground_truth_memberships": 42810
+      },
+      "pack": {
+        "num_queries": 1,
+        "samples_per_query": 64,
+        "num_samples": 64,
+        "valid_sample_rate": 0.0,
+        "success_at_64": 0.0,
+        "mean_valid_count_per_query": 0.0,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.0,
+          "quaternion": 1.0,
+          "size": 0.171875,
+          "spacing": 1.0,
+          "task": 0.171875
+        },
+        "coverage_at_64": 0.0,
+        "coverage_at_64_micro": 0.0,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.0,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.0,
+        "num_ground_truth_memberships": 149
+      }
+    },
+    "by_bar_type": {
+      "4-bar": {
+        "num_queries": 54,
+        "samples_per_query": 64,
+        "num_samples": 3456,
+        "valid_sample_rate": 0.0,
+        "success_at_64": 0.0,
+        "mean_valid_count_per_query": 0.0,
+        "constraint_pass_rates": {
+          "angle": 0.9840856481481481,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.0,
+          "quaternion": 1.0,
+          "size": 0.4849537037037037,
+          "spacing": 0.9748263888888888,
+          "task": 0.9846643518518519
+        },
+        "coverage_at_64": 0.0,
+        "coverage_at_64_micro": 0.0,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.0,
+        "diversity_at_64": 0.0,
+        "queries_with_two_valid_rate": 0.0,
+        "num_ground_truth_memberships": 35196
+      },
+      "6-bar": {
+        "num_queries": 35,
+        "samples_per_query": 64,
+        "num_samples": 2240,
+        "valid_sample_rate": 0.40401785714285715,
+        "success_at_64": 0.8857142857142857,
+        "mean_valid_count_per_query": 25.857142857142858,
+        "constraint_pass_rates": {
+          "angle": 0.9321428571428572,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.9910714285714286,
+          "quaternion": 1.0,
+          "size": 0.5571428571428572,
+          "spacing": 0.8892857142857142,
+          "task": 0.8772321428571429
+        },
+        "coverage_at_64": 0.46721457519606613,
+        "coverage_at_64_micro": 0.5469705391884381,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.02447940642955167,
+        "diversity_at_64": 0.05749385399477822,
+        "queries_with_two_valid_rate": 0.8,
+        "num_ground_truth_memberships": 17990
+      },
+      "8-bar": {
+        "num_queries": 15,
+        "samples_per_query": 64,
+        "num_samples": 960,
+        "valid_sample_rate": 0.36666666666666664,
+        "success_at_64": 0.6,
+        "mean_valid_count_per_query": 23.466666666666665,
+        "constraint_pass_rates": {
+          "angle": 0.9885416666666667,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.996875,
+          "quaternion": 1.0,
+          "size": 0.38645833333333335,
+          "spacing": 0.9604166666666667,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.41755418686857115,
+        "coverage_at_64_micro": 0.726970402394413,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.01777700664120833,
+        "diversity_at_64": 0.038899274170398714,
+        "queries_with_two_valid_rate": 0.6,
+        "num_ground_truth_memberships": 6014
+      }
+    }
+  },
+  "timing": {
+    "validation_reconstruction": {
+      "num_batches": 116,
+      "elapsed_seconds": 1.6265980360000185,
+      "batches_per_second": 71.31448423807065
+    },
+    "prior_generation": {
+      "num_batches": 7,
+      "elapsed_seconds": 0.629636698000013,
+      "batches_per_second": 11.117522250902624
+    }
+  }
+}

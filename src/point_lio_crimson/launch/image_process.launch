@@ -1,0 +1,7 @@
+<launch>
+	<node pkg="point_lio_crimson" type="image_process_node" name="image_process_node" output="screen" />
+	<param name="color_topic" type="string" value="/camera/color/image_raw"/>
+    <param name="image_process_topic" type="string" value="/image_process"/>
+	<param name="goal_topic" type="string" value="/move_base/reach_goal"/>
+    <param name="server_url" type="string" value="192.168.111.103:5000/predict"/>
+</launch>

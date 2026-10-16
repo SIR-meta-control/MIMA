@@ -1,0 +1,18 @@
+# Authorized weights and generated experiment artifacts stay outside Git.
+models/
+data/
+outputs/
+.venv*/
+__pycache__/
+.pytest_cache/
+*.joblib
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.onnx
+# Keep program files visible despite the repository's broad dist* ignore rule.
+!**/*.py

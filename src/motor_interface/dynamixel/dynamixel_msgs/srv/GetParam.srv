@@ -1,0 +1,12 @@
+# srv for sync read instruction
+# req: 
+# 1: {torque enable, present current,
+#     present velocity, present position,
+#     input voltage, temperature} 
+# 2: Motor ID list 
+# ---
+# res: Param list
+uint8 paramType
+uint8[] packetID
+---
+uint32[] params

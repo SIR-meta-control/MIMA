@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+  <param name="/lk_control/lk_yaml_path" value="$(find lk_control)/config/lk.yaml"/>
+  <node pkg="lk_control" type="lk_node" name="lk_node" output="screen" respawn="false"/>
+
+</launch>

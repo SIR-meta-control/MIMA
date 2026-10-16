@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="flag_test" type="bool" value="false"/>
+    <node name="kin_ite_node" pkg="kinematics_interpreter" type="kin_ite_srv.py" output="screen">
+    </node>
+</launch>

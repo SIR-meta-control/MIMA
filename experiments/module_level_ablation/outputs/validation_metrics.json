@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-13T21:09:24",
+  "model": "checkpoints/structure_generator/20260618_172506_all_gnn_scale/best_model.pt",
+  "model_family": "conditional_structure_vae",
+  "scale_mode": "gnn",
+  "method_name": "Full generator",
+  "validation_pairs": "datasets/processed_dataset/split_seed7/val_pairs.jsonl",
+  "device": "cuda",
+  "thresholds": {
+    "quaternion_norm_max": 0.0001,
+    "spacing_rmse_max": 0.015,
+    "spacing_error_max": 0.03,
+    "geometry_error_max": 0.03,
+    "angle_rmse_max": 0.03,
+    "size_excess_max": 0.0001,
+    "task_excess_max": 0.0001
+  },
+  "reconstruction": {
+    "num_pairs": 59200,
+    "node_position_mae_mm": 1.5838928722046517,
+    "node_position_mae_cm": 0.15838928722046516,
+    "node_position_rmse_cm": 0.2654516281480255,
+    "node_position_mean_distance_cm": 0.32654652704258225,
+    "node_rotation_mean_rad": 0.016864434277424487,
+    "node_rotation_mean_deg": 0.9662609079721811,
+    "leg_angle_mae_rad": 0.005933142862413144,
+    "leg_angle_mae_deg": 0.33994404526444166,
+    "scale_end_to_end": {
+      "num_examples": 59200,
+      "mae_cm": {
+        "x": 0.37570582551730647,
+        "y": 0.286992891716796,
+        "z": 0.13670564377428712
+      },
+      "rmse_cm": {
+        "x": 0.43425247962365865,
+        "y": 0.5595947058361916,
+        "z": 0.19543876726676132
+      },
+      "r2": {
+        "x": 0.999035862886315,
+        "y": 0.9982793506140873,
+        "z": 0.9991487878979557
+      },
+      "within_2cm_rate": 0.9930236486486487
+    },
+    "scale_teacher": {
+      "num_examples": 3549,
+      "mae_cm": {
+        "x": 0.2581025780540481,
+        "y": 0.24261148790803955,
+        "z": 0.14021823266151087
+      },
+      "rmse_cm": {
+        "x": 0.33654207894318977,
+        "y": 0.3345867400560342,
+        "z": 0.2804390075573323
+      },
+      "r2": {
+        "x": 0.9992274226569928,
+        "y": 0.9994031246014536,
+        "z": 0.9983754578241695
+      },
+      "within_2cm_rate": 0.9963369963369964
+    },
+    "overall_valid_rate": 0.994847972972973,
+    "constraint_pass_rates": {
+      "angle": 1.0,
+      "bar_type": 1.0,
+      "finite": 1.0,
+      "geometry": 0.9988175675675676,
+      "quaternion": 1.0,
+      "size": 0.9960304054054054,
+      "spacing": 1.0,
+      "task": 1.0
+    },
+    "constraint_mean_errors": {
+      "angle_rmse": 0.009953520537630932,
+      "geometry_error_max": 0.003977291811559651,
+      "load_q2_excess": 0.0,
+      "pack_scale_excess": 0.0,
+      "quaternion_norm_error": 4.901273830516919e-09,
+      "size_excess_max": 9.280130065776206e-06,
+      "size_margin_min": 0.1133545655817599,
+      "spacing_error_max": 0.004131360239273793,
+      "spacing_rmse": 0.002055779805255903
+    },
+    "num_unique_teacher_structures": 3549
+  },
+  "prior_generation": {
+    "overall": {
+      "num_queries": 104,
+      "samples_per_query": 64,
+      "num_samples": 6656,
+      "valid_sample_rate": 0.5232872596153846,
+      "success_at_64": 0.8846153846153846,
+      "mean_valid_count_per_query": 33.49038461538461,
+      "constraint_pass_rates": {
+        "angle": 0.9990985576923077,
+        "bar_type": 1.0,
+        "finite": 1.0,
+        "geometry": 0.9800180288461539,
+        "quaternion": 1.0,
+        "size": 0.5779747596153846,
+        "spacing": 0.9591346153846154,
+        "task": 0.9556790865384616
+      },
+      "coverage_at_64": 0.5209427967318206,
+      "coverage_at_64_micro": 0.6249155405405405,
+      "coverage_threshold": 0.02,
+      "mean_gt_to_generated_distance": 0.022772513276556335,
+      "diversity_at_64": 0.1511119541962846,
+      "queries_with_two_valid_rate": 0.8461538461538461,
+      "num_ground_truth_memberships": 59200
+    },
+    "by_task": {
+      "inspect": {
+        "num_queries": 21,
+        "samples_per_query": 64,
+        "num_samples": 1344,
+        "valid_sample_rate": 0.7113095238095238,
+        "success_at_64": 0.9523809523809523,
+        "mean_valid_count_per_query": 45.523809523809526,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.9791666666666666,
+          "quaternion": 1.0,
+          "size": 0.7291666666666666,
+          "spacing": 0.9791666666666666,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.5505249842329333,
+        "coverage_at_64_micro": 0.6038808310466484,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.022390853191239887,
+        "diversity_at_64": 0.2547191580136617,
+        "queries_with_two_valid_rate": 0.8571428571428571,
+        "num_ground_truth_memberships": 15306
+      },
+      "load": {
+        "num_queries": 6,
+        "samples_per_query": 64,
+        "num_samples": 384,
+        "valid_sample_rate": 0.14322916666666666,
+        "success_at_64": 1.0,
+        "mean_valid_count_per_query": 9.166666666666666,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.9765625,
+          "quaternion": 1.0,
+          "size": 0.6666666666666666,
+          "spacing": 0.9427083333333334,
+          "task": 0.23958333333333334
+        },
+        "coverage_at_64": 0.7907273411752694,
+        "coverage_at_64_micro": 0.7647058823529411,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.018307593162047036,
+        "diversity_at_64": 0.03737399478753408,
+        "queries_with_two_valid_rate": 1.0,
+        "num_ground_truth_memberships": 935
+      },
+      "none": {
+        "num_queries": 76,
+        "samples_per_query": 64,
+        "num_samples": 4864,
+        "valid_sample_rate": 0.4956825657894737,
+        "success_at_64": 0.8552631578947368,
+        "mean_valid_count_per_query": 31.723684210526315,
+        "constraint_pass_rates": {
+          "angle": 0.998766447368421,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.9802631578947368,
+          "quaternion": 1.0,
+          "size": 0.5242598684210527,
+          "spacing": 0.954358552631579,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.4867561514907061,
+        "coverage_at_64_micro": 0.6284980144825976,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.023049188832951647,
+        "diversity_at_64": 0.12967855064198375,
+        "queries_with_two_valid_rate": 0.8289473684210527,
+        "num_ground_truth_memberships": 42810
+      },
+      "pack": {
+        "num_queries": 1,
+        "samples_per_query": 64,
+        "num_samples": 64,
+        "valid_sample_rate": 0.953125,
+        "success_at_64": 1.0,
+        "mean_valid_count_per_query": 61.0,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 1.0,
+          "quaternion": 1.0,
+          "size": 0.953125,
+          "spacing": 1.0,
+          "task": 0.953125
+        },
+        "coverage_at_64": 0.8791946308724832,
+        "coverage_at_64_micro": 0.8791946308724832,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.0110208044116129,
+        "diversity_at_64": 0.28672710061073303,
+        "queries_with_two_valid_rate": 1.0,
+        "num_ground_truth_memberships": 149
+      }
+    },
+    "by_bar_type": {
+      "4-bar": {
+        "num_queries": 54,
+        "samples_per_query": 64,
+        "num_samples": 3456,
+        "valid_sample_rate": 0.6241319444444444,
+        "success_at_64": 0.8703703703703703,
+        "mean_valid_count_per_query": 39.94444444444444,
+        "constraint_pass_rates": {
+          "angle": 0.9991319444444444,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.9748263888888888,
+          "quaternion": 1.0,
+          "size": 0.6435185185185185,
+          "spacing": 0.9722222222222222,
+          "task": 0.9991319444444444
+        },
+        "coverage_at_64": 0.4855170799341266,
+        "coverage_at_64_micro": 0.6100977383793613,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.023282635877981007,
+        "diversity_at_64": 0.24027537513110372,
+        "queries_with_two_valid_rate": 0.8333333333333334,
+        "num_ground_truth_memberships": 35196
+      },
+      "6-bar": {
+        "num_queries": 35,
+        "samples_per_query": 64,
+        "num_samples": 2240,
+        "valid_sample_rate": 0.4263392857142857,
+        "success_at_64": 0.9714285714285714,
+        "mean_valid_count_per_query": 27.285714285714285,
+        "constraint_pass_rates": {
+          "angle": 1.0,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 0.9794642857142857,
+          "quaternion": 1.0,
+          "size": 0.5566964285714285,
+          "spacing": 0.9303571428571429,
+          "task": 0.8696428571428572
+        },
+        "coverage_at_64": 0.6078647839240058,
+        "coverage_at_64_micro": 0.610283490828238,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.02259873551357819,
+        "diversity_at_64": 0.06207682963992868,
+        "queries_with_two_valid_rate": 0.9714285714285714,
+        "num_ground_truth_memberships": 17990
+      },
+      "8-bar": {
+        "num_queries": 15,
+        "samples_per_query": 64,
+        "num_samples": 960,
+        "valid_sample_rate": 0.38645833333333335,
+        "success_at_64": 0.7333333333333333,
+        "mean_valid_count_per_query": 24.733333333333334,
+        "constraint_pass_rates": {
+          "angle": 0.996875,
+          "bar_type": 1.0,
+          "finite": 1.0,
+          "geometry": 1.0,
+          "quaternion": 1.0,
+          "size": 0.39166666666666666,
+          "spacing": 0.9791666666666666,
+          "task": 1.0
+        },
+        "coverage_at_64": 0.4456574070884221,
+        "coverage_at_64_micro": 0.755404057199867,
+        "coverage_threshold": 0.02,
+        "mean_gt_to_generated_distance": 0.020263220591381238,
+        "diversity_at_64": 0.03787226279576619,
+        "queries_with_two_valid_rate": 0.6,
+        "num_ground_truth_memberships": 6014
+      }
+    }
+  },
+  "timing": {
+    "validation_reconstruction": {
+      "num_batches": 116,
+      "elapsed_seconds": 2.0719184449999375,
+      "batches_per_second": 55.986759652599886
+    },
+    "prior_generation": {
+      "num_batches": 7,
+      "elapsed_seconds": 0.6643054210001083,
+      "batches_per_second": 10.537321808185062
+    }
+  }
+}

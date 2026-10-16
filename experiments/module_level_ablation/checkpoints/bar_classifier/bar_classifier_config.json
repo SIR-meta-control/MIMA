@@ -1,0 +1,29 @@
+{
+  "dataset": "datasets/processed_dataset/bar_classifier_dataset.jsonl",
+  "input_format": [
+    "x",
+    "y",
+    "z",
+    "load",
+    "inspect",
+    "pack"
+  ],
+  "output_format": [
+    "P(4-bar)",
+    "P(8-bar)",
+    "P(6-bar)"
+  ],
+  "hidden_dim": 64,
+  "dropout": 0.0,
+  "epochs": 200,
+  "batch_size": 512,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "val_ratio": 0.2,
+  "seed": 7,
+  "best_epoch": 199,
+  "device": "cuda",
+  "num_rows": 17987,
+  "num_train": 14389,
+  "num_val": 3598
+}

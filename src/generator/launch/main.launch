@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="generator_service_url" default="http://127.0.0.1:8091" />
+    <arg name="requirement_vector_topic" default="/requirement/vector" />
+    <arg name="generated_configs_topic" default="/generated_topolist" />
+    <arg name="samples_per_bar" default="64" />
+    <arg name="top_k" default="10" />
+    <arg name="seed" default="7" />
+
+    <include file="$(find optimizer)/launch/optimizer.launch" />
+    <include file="$(find kinematics_interpreter)/launch/main.launch" />
+    <include file="$(find trans_planner)/launch/real.launch" />
+
+    <node name="generator_node" pkg="generator" type="robot_config_generator.py" output="screen">
+        <param name="service_url" value="$(arg generator_service_url)" />
+        <param name="requirement_vector_topic" value="$(arg requirement_vector_topic)" />
+        <param name="generated_configs_topic" value="$(arg generated_configs_topic)" />
+        <param name="samples_per_bar" value="$(arg samples_per_bar)" />
+        <param name="top_k" value="$(arg top_k)" />
+        <param name="bar_types" value="auto" />
+        <param name="temperature" value="1.0" />
+        <param name="diversity_threshold" value="0.02" />
+        <param name="min_per_bar" value="1" />
+        <param name="seed" value="$(arg seed)" />
+        <param name="service_timeout_s" value="120.0" />
+    </node>
+
+    <node name="message_saver" pkg="test_dyn" type="message_saver.py" output="screen" />
+</launch>

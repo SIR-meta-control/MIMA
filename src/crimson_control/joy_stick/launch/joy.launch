@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <param name="/joy_stick/joy_yaml_path" value="$(find joy_stick)/config/joy.yaml"/>
+    <node pkg="joy_stick" type="ckey_node" name="ckey_node" output="screen" respawn="false" />
+</launch>

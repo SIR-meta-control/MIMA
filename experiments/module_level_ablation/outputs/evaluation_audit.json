@@ -1,0 +1,154 @@
+{
+  "created_at": "2026-10-13T21:10:45+08:00",
+  "training_partition": {
+    "path": "datasets/processed_dataset/split_seed7/train_pairs.jsonl",
+    "sha256": "1e5e526a0e97fd6a535e6e50ee8d9f3d62ecd75fc0c536c7571a7d4565827d28",
+    "num_pairs": 527669,
+    "num_unique_source_structures": 31943
+  },
+  "evaluation_partition": {
+    "path": "datasets/processed_dataset/split_seed7/val_pairs.jsonl",
+    "sha256": "69da04ebc5a96b256c0370f7bb982a6fd86a843e24a3555c8961f62b36f591bc",
+    "num_pairs": 59200,
+    "num_unique_source_structures": 3549,
+    "num_queries_vreq_bar": 104,
+    "task_pair_counts": {
+      "none": 42810,
+      "load": 935,
+      "inspect": 15306,
+      "pack": 149
+    }
+  },
+  "source_structure_overlap_with_training": 0,
+  "query_overlap_with_training": 104,
+  "overlap_definition": "Exact source_path membership; zero source overlap does not establish zero geometric duplicates under different source IDs.",
+  "evaluation_role": "Validation partition used during training for checkpoint selection; not an independent test partition.",
+  "evaluation_settings": {
+    "seed": 7,
+    "samples_per_query": 64,
+    "batch_size": 512,
+    "query_batch_size": 16,
+    "temperature": 1.0,
+    "coverage_threshold": 0.02,
+    "max_pairs": 0,
+    "max_queries": 0,
+    "device": "cuda"
+  },
+  "software": {
+    "torch_version": "2.8.0+cu129",
+    "cuda_version": "12.9",
+    "gpu": "NVIDIA GeForce RTX 3090"
+  },
+  "models": [
+    {
+      "method": "Full generator",
+      "checkpoint": "checkpoints/structure_generator/20260618_172506_all_gnn_scale/best_model.pt",
+      "checkpoint_sha256": "53e9d7baea56fcd661ec69181e3a21cea7adf35a964fd500cfd967cfd58c5ad2",
+      "checkpoint_training_pairs": "datasets/processed_dataset/split_seed7/train_pairs.jsonl",
+      "checkpoint_training_pair_count": 527669,
+      "checkpoint_validation_pairs": "datasets/processed_dataset/split_seed7/val_pairs.jsonl",
+      "checkpoint_validation_pair_count": 59200,
+      "metrics_file": "outputs/validation_metrics.json",
+      "evaluated_pair_count": 59200,
+      "evaluated_unique_source_count": 3549,
+      "evaluated_query_count": 104,
+      "generated_output_count": 6656,
+      "reconstruction_seconds": 2.0719184449999375,
+      "prior_generation_seconds": 0.6643054210001083
+    },
+    {
+      "method": "Scale GNN -> MLP",
+      "checkpoint": "checkpoints/cvae_mlp_ablation/20260618_172609_all_mlp_scale/best_model.pt",
+      "checkpoint_sha256": "0e7fb44a74ebe10236907eef1d8e08feacc74de400710137641c43d3ba4fa9ce",
+      "checkpoint_training_pairs": "datasets/processed_dataset/split_seed7/train_pairs.jsonl",
+      "checkpoint_training_pair_count": 527669,
+      "checkpoint_validation_pairs": "datasets/processed_dataset/split_seed7/val_pairs.jsonl",
+      "checkpoint_validation_pair_count": 59200,
+      "metrics_file": "outputs/cvae_mlp_ablation_metrics.json",
+      "evaluated_pair_count": 59200,
+      "evaluated_unique_source_count": 3549,
+      "evaluated_query_count": 104,
+      "generated_output_count": 6656,
+      "reconstruction_seconds": 1.6265980360000185,
+      "prior_generation_seconds": 0.629636698000013
+    },
+    {
+      "method": "CVAE -> MLP",
+      "checkpoint": "checkpoints/mlp_gnn_ablation/20260618_181644_vreq_gnn/best_model.pt",
+      "checkpoint_sha256": "03dbd3d7d223a8559a04f5b2d36411867753ef805912cff22a088a41e1fdf4af",
+      "checkpoint_training_pairs": "datasets/processed_dataset/split_seed7/train_pairs.jsonl",
+      "checkpoint_training_pair_count": 527669,
+      "checkpoint_validation_pairs": "datasets/processed_dataset/split_seed7/val_pairs.jsonl",
+      "checkpoint_validation_pair_count": 59200,
+      "metrics_file": "outputs/mlp_gnn_ablation_metrics.json",
+      "evaluated_pair_count": 59200,
+      "evaluated_unique_source_count": 3549,
+      "evaluated_query_count": 104,
+      "generated_output_count": 6656,
+      "reconstruction_seconds": 1.7056626160000405,
+      "prior_generation_seconds": 0.6743351499999335
+    },
+    {
+      "method": "CVAE+Scale GNN -> MLP",
+      "checkpoint": "checkpoints/mlp_ablation/20260618_181743_vreq_direct_mlp/best_model.pt",
+      "checkpoint_sha256": "d29a1bc9b1ee88fb276ca07840e35c4d0c81cbf75c67ad1782005d58d0f86fa7",
+      "checkpoint_training_pairs": "datasets/processed_dataset/split_seed7/train_pairs.jsonl",
+      "checkpoint_training_pair_count": 527669,
+      "checkpoint_validation_pairs": "datasets/processed_dataset/split_seed7/val_pairs.jsonl",
+      "checkpoint_validation_pair_count": 59200,
+      "metrics_file": "outputs/mlp_ablation_metrics.json",
+      "evaluated_pair_count": 59200,
+      "evaluated_unique_source_count": 3549,
+      "evaluated_query_count": 104,
+      "generated_output_count": 6656,
+      "reconstruction_seconds": 1.6091454099999964,
+      "prior_generation_seconds": 0.6486132900000712
+    }
+  ],
+  "comparison_with_previous_outputs": [
+    {
+      "method": "Full generator",
+      "location_mae_mm": 1.5838928722046517,
+      "location_change_mm": -0.03355352172741677,
+      "achievement_rate_percent": 88.46153846153845,
+      "achievement_change_percentage_points": 3.555878084179964,
+      "valid_rate_percent": 52.32872596153846,
+      "valid_change_percentage_points": 1.6064382256893994,
+      "coverage_percent": 52.094279673182065,
+      "coverage_change_percentage_points": 1.0565258027624091
+    },
+    {
+      "method": "Scale GNN -> MLP",
+      "location_mae_mm": 6.723446957431398,
+      "location_change_mm": -0.012791565319089315,
+      "achievement_rate_percent": 38.46153846153847,
+      "achievement_change_percentage_points": -1.161103047895501,
+      "valid_rate_percent": 18.885216346153847,
+      "valid_change_percentage_points": 0.5479521952104494,
+      "coverage_percent": 21.745983591241234,
+      "coverage_change_percentage_points": -0.9135001702038237
+    },
+    {
+      "method": "CVAE -> MLP",
+      "location_mae_mm": 24.841834392633523,
+      "location_change_mm": -0.03844723460212052,
+      "achievement_rate_percent": 74.03846153846155,
+      "achievement_change_percentage_points": 1.3969521044992828,
+      "valid_rate_percent": 74.03846153846155,
+      "valid_change_percentage_points": 1.3969521044992828,
+      "coverage_percent": 4.1195097722401295,
+      "coverage_change_percentage_points": -0.037825323499015434
+    },
+    {
+      "method": "CVAE+Scale GNN -> MLP",
+      "location_mae_mm": 23.743273121816618,
+      "location_change_mm": -0.05459073014254656,
+      "achievement_rate_percent": 55.769230769230774,
+      "achievement_change_percentage_points": 1.0522496371553003,
+      "valid_rate_percent": 55.769230769230774,
+      "valid_change_percentage_points": 1.0522496371553003,
+      "coverage_percent": 3.702440362064726,
+      "coverage_change_percentage_points": -0.1698855230268463
+    }
+  ]
+}

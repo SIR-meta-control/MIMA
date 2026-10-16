@@ -1,0 +1,11 @@
+-r requirements.txt
+# Install a matching PyTorch / torchvision build for your CUDA runtime first.
+transformers==4.37.2
+accelerate==0.26.1
+peft==0.10.0
+sentencepiece
+timm==1.0.27
+einops
+pyntcloud
+orjson
+tensorboard

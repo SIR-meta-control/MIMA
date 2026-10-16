@@ -1,0 +1,22 @@
+[tool.ruff]
+target-version = "py310"
+extend-exclude = [
+    "MLLM/internvl_chat",
+    "MLLM/teacher_student/vendor",
+    "MLLM/internvl_chat_llava",
+    "MLLM/lmdeploy",
+    "MLLM/segmentation",
+    "MLLM/internvl_g",
+    "src/third_party",
+    "src/point_lio_crimson",
+    "src/motor_interface/dynamixel/dynamixel_sdk",
+    "experiments/module_level_ablation/datasets",
+    "experiments/module_level_ablation/ckpts",
+    "experiments/system_level_ablation/data_bundle",
+    "docs/release",
+]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+# Standalone entry points add their local source root before importing modules.
+ignore = ["E402"]

@@ -1,0 +1,134 @@
+motion_list: 
+  - [0, 0, 0, 0, 0, 0]        # 0 stop
+  - [0.3, 0, 0, 0, 0, 0]      # 1 front
+  - [-0.3, 0, 0, 0, 0, 0]     # 2 hind
+  - [0, 0.3, 0, 0, 0, 0]      # 3 left
+  - [0, -0.3, 0, 0, 0, 0]     # 4 right
+  - [0.3, 0.3, 0, 0, 0, 0]    # 5 lf
+  - [0.3, -0.3, 0, 0, 0, 0]   # 6 fr
+  - [-0.3, 0.3, 0, 0, 0, 0]   # 7 lh
+  - [-0.3, -0.3, 0, 0, 0, 0]  # 8 hr
+  - [0, 0, 0.3, 0, 0, 0]      # 9 turn left
+  - [0, 0, -0.3, 0, 0, 0]     # 10 turn right
+
+delay: 2000
+
+transform_list:
+  # packup: 1 status, 1 step
+  - [4, 1, 1, 1]  # 0  packup
+
+  # dog:    7 status, 9 steps
+  - [3, 1, 1, 1]  # 1  dog,    omni, normal, default
+  # - [3, 0, 1, 0]  # 2  dog,    quad, normal, up
+  # - [3, 0, 1, 1]  # 3  dog,    quad, normal, default
+  # - [3, 1, 1, 1]  # 4  dog,    omni, normal, default
+  # - [3, 1, 0, 2]  # 5  dog,    omni, narrow, down
+  # - [3, 1, 1, 2]  # 6  dog,    omni, normal, down
+  # - [3, 1, 2, 1]  # 7  dog,    omni, extend, default
+  # - [3, 1, 2, 2]  # 8  dog,    omni, extend, down
+  # - [3, 1, 1, 1]  # 9  dog,    omni, normal, default
+  
+  # gecko:  6 status, 8 steps 
+  - [0, 1, 1, 1]  # 10 gecko,  omni, normal, default
+  - [0, 0, 1, 1]  # 11 gecko,  quad, normal, default
+  - [0, 0, 1, 0]  # 12 gecko,  quad, normal, up
+  - [0, 1, 1, 1]  # 13 gecko,  omni, normal, default
+  - [0, 1, 0, 1]  # 14 gecko,  omni, narrow, default
+  - [0, 0, 0, 1]  # 15 gecko,  quad, narrow, default
+  - [0, 0, 0, 0]  # 16 gecko,  quad, narrow, up
+  - [0, 1, 1, 1]  # 17 gecko,  omni, normal, default
+
+  # spider: 12 status, 16 steps
+  - [1, 1, 1, 1]  # 18 spider, omni, normal, default
+  - [1, 0, 2, 0]  # 19 spider, quad, extend, up
+  - [1, 0, 2, 2]  # 20 spider, quad, extend, down
+  - [1, 0, 2, 1]  # 21 spider, quad, extend, default
+  - [1, 1, 1, 1]  # 22 spider, omni, normal, default
+  - [1, 1, 2, 1]  # 23 spider, omni, extend, default
+  - [1, 0, 1, 0]  # 24 spider, quad, normal, up
+  - [1, 0, 1, 2]  # 25 spider, quad, normal, down
+  - [1, 0, 1, 1]  # 26 spider, quad, normal, default
+  - [1, 1, 2, 1]  # 27 spider, omni, extend, default
+  - [1, 1, 0, 1]  # 28 spider, omni, narrow, default
+  - [1, 0, 0, 0]  # 29 spider, quad, narrow, up
+  - [1, 0, 0, 2]  # 30 spider, quad, narrow, down
+  - [1, 0, 0, 1]  # 31 spider, quad, narrow, default
+  - [1, 1, 0, 1]  # 32 spider, omni, narrow, default
+  - [1, 1, 1, 1]  # 33 spider, omni, normal, default
+
+  # stick: 8 status, 11 steps
+  - [2, 1, 1, 1]  # 34 stick,  omni, normal, default
+  - [2, 0, 0, 0]  # 35 stick,  quad, narrow, up
+  - [2, 0, 0, 2]  # 36 stick,  quad, narrow, down
+  - [2, 0, 0, 1]  # 37 stick,  quad, narrow, default
+  - [2, 1, 1, 1]  # 38 stick,  omni, normal, default
+  - [2, 1, 0, 1]  # 39 stick,  omni, narrow, default
+  - [2, 0, 1, 0]  # 40 stick,  quad, normal, up
+  - [2, 0, 1, 2]  # 41 stick,  quad, normal, down
+  - [2, 0, 1, 1]  # 42 stick,  quad, normal, default
+  - [2, 1, 0, 1]  # 43 stick,  omni, narrow, default
+  - [2, 1, 1, 1]  # 44 stick,  omni, normal, default
+
+  - [0, 1, 1, 1]  # 45 gecko,  omni, normal, default
+  - [4, 1, 1, 1]  # 46 packup
+
+motion_group: 
+  # packup
+  - [9, 0]        # 0 turn left, stop
+
+  # dog
+  - [10, 0]       # 1  turn right, stop
+  - [0]           # 2  stop
+  - [0]           # 3  stop
+  - [0]           # 4  stop
+  # - [0]           # 5  stop
+  # - [0]           # 6  stop
+  # - [9, 0]        # 7  turn left, stop
+  # - [0]           # 8  stop
+  # - [0]           # 9  stop
+
+  # gecko
+  - [9, 4, 0]     # 10 turn left, right, stop
+  - [1, 9, 2, 0]  # 11 front, turn left, hind, stop
+  - [0]           # 12 stop
+  - [0]           # 13 stop
+  - [2, 0]        # 14 hind,  stop
+  # - [1, 0]        # 15 front, stop
+  - [0]        # 15 front, stop
+  - [0]           # 16 stop
+  - [0]           # 17 stop
+
+  # spider
+  - [10, 5, 0]    # 18 turn right, lf, stop
+  - [0]           # 19 stop
+  - [0]           # 20 stop
+  - [0]           # 21 stop
+  - [8, 0]        # 22 hr, stop
+  - [0]           # 23 stop
+  - [0]           # 24 stop
+  - [0]           # 25 stop
+  - [0]           # 26 stop
+  - [0]           # 27 stop
+  - [9, 0]        # 28 turn left, stop
+  - [0]           # 29 stop
+  - [0]           # 30 stop
+  - [0]           # 31 stop
+  - [0]           # 32 stop
+  - [9, 0]        # 33 turn left, stop
+
+  # stick
+  - [3, 0]        # 34 left, stop
+  - [0]           # 35 stop
+  - [0]           # 36 stop
+  - [1, 1, 0]     # 37 front, front, stop
+  - [4, 0]        # 38 right, stop
+  - [0]           # 39 stop
+  - [0]           # 40 stop
+  - [0]           # 41 stop
+  - [0]           # 42 stop
+  - [0]           # 43 stop
+  - [0]           # 44 stop
+
+  # packup
+  - [0]           # 45 stop
+  - [10, 0]       # 46 turn right, stop

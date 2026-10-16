@@ -1,0 +1,61 @@
+kinematic_chain_relative_poses:
+- description: Relative pose of Body 1 with respect to Body 0
+  position:
+  - 0.07900000000000003
+  - 0.05245000000000001
+  - 1.3877787807814457e-17
+  quaternion_wxyz:
+  - 0.50000399999
+  - -0.4999979999900001
+  - 0.50000199999
+  - 0.49999599999000016
+- description: Relative pose of Body 2 with respect to Body 1
+  position:
+  - 0.22450000000000003
+  - 0.0
+  - -4.235164736271502e-22
+  quaternion_wxyz:
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+- description: Relative pose of Body 3 with respect to Body 2
+  position:
+  - 0.22450000000000006
+  - 0.0
+  - 0.0
+  quaternion_wxyz:
+  - -0.7071052811843602
+  - 8.470329472543003e-22
+  - 8.470329472543003e-22
+  - -0.707108281185553
+- description: Relative pose of Body 4 with respect to Body 3
+  position:
+  - 0.07900000000000001
+  - 0.0
+  - -0.052450000000000004
+  quaternion_wxyz:
+  - -0.7071052811843603
+  - 0.7071082811855531
+  - 0.0
+  - -1.1102230246251565e-16
+- description: Relative pose of Body 5 with respect to Body 4
+  position:
+  - 0.07900000000000007
+  - -0.05245000000000004
+  - 5.551115123125783e-17
+  quaternion_wxyz:
+  - -0.5000039999900001
+  - -0.49999799999000005
+  - 0.5000019999900001
+  - -0.49999599999000016
+- description: Relative pose of Body 6 with respect to Body 5
+  position:
+  - 0.2245
+  - 0.0
+  - -2.117582368135751e-22
+  quaternion_wxyz:
+  - 1.0
+  - 0.0
+  - -1.2621693704179494e-22
+  - 0.0

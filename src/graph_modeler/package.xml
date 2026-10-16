@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>graph_modeler</name>
+  <version>0.0.0</version>
+  <description>MuJoCo pose capture and conversion to robot topological configuration messages.</description>
+
+  <maintainer email="inorichen77@gmail.com">inron</maintainer>
+
+  <license>GPL-3.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>meta_msgs</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>meta_msgs</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>meta_msgs</exec_depend>
+  <exec_depend>ros_mujoco</exec_depend>
+
+  <export>
+
+  </export>
+</package>

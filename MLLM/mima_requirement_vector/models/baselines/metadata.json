@@ -1,0 +1,60 @@
+{
+  "model_files": {
+    "dt": "dt.joblib",
+    "rf": "rf.joblib",
+    "gbt": "gbt.joblib"
+  },
+  "model_names": {
+    "dt": "w/o MLLM -> DT",
+    "rf": "w/o MLLM -> RF",
+    "gbt": "w/o MLLM -> GBT"
+  },
+  "feature_columns": [
+    "rgb_tunnel_score",
+    "rgb_step_score",
+    "rgb_obstacle_score",
+    "rgb_person_score",
+    "rgb_open_ground_score",
+    "depth_min_clearance_m",
+    "depth_obstacle_height_m",
+    "depth_step_height_m",
+    "depth_slope_deg",
+    "pc_corridor_width_m",
+    "pc_ground_roughness",
+    "pc_turn_angle_deg",
+    "pc_free_space_area_m2",
+    "cmd_load",
+    "cmd_inspect",
+    "cmd_pack"
+  ],
+  "requirement_columns": [
+    "wp_m",
+    "hp_m",
+    "dp_m",
+    "hs_m",
+    "fl",
+    "fi",
+    "fp"
+  ],
+  "prediction_columns": [
+    "wp_m_pred",
+    "hp_m_pred",
+    "dp_m_pred",
+    "hs_m_pred",
+    "fl_pred",
+    "fi_pred",
+    "fp_pred"
+  ],
+  "random_state": 42,
+  "train_samples": 202,
+  "source_manifests": [
+    "results/mujoco_sensor_dataset/tunnel_1m_h042_sweep_002/manifest.jsonl",
+    "results/mujoco_sensor_dataset/midbox_1m_h042_sweep_002/manifest.jsonl",
+    "results/mujoco_sensor_dataset/step_1m_h042_sweep_001/manifest.jsonl"
+  ],
+  "input_contract": {
+    "rgb_path": "RGB image readable by Pillow",
+    "depth_path": "2D .npy array in meters",
+    "point_cloud_path": "Nx3 .npy point array using x/y/z columns"
+  }
+}

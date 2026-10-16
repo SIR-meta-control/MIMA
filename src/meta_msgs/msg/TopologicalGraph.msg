@@ -1,0 +1,4 @@
+std_msgs/Float32MultiArray nodes
+std_msgs/Float32MultiArray edges
+std_msgs/Float32MultiArray adjacency
+meta_msgs/Global feature

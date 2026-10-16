@@ -1,0 +1,43 @@
+data/*.zip filter=lfs diff=lfs merge=lfs -text
+data/*.bag.part* filter=lfs diff=lfs merge=lfs -text
+
+# Checksum list must keep LF endings on every platform
+/data/SHA256SUMS text eol=lf
+
+# Preserve module artifact checksums across Windows and Linux checkouts.
+experiments/module_level_ablation/**/*.py text eol=lf
+experiments/module_level_ablation/**/*.md text eol=lf
+experiments/module_level_ablation/**/*.json text eol=lf
+experiments/module_level_ablation/**/*.yaml text eol=lf
+experiments/module_level_ablation/**/*.yml text eol=lf
+experiments/module_level_ablation/**/*.sh text eol=lf
+experiments/module_level_ablation/**/*.txt text eol=lf
+experiments/module_level_ablation/MANIFEST.sha256 text eol=lf
+experiments/module_level_ablation/outputs/*.csv text eol=crlf
+
+# Omit local tooling and vendored contributor/CI configuration from git archives.
+# Keep runtime code, examples, scientific records, and license files.
+.agents export-ignore
+**/.vscode export-ignore
+**/__pycache__ export-ignore
+MLLM/lmdeploy/.github export-ignore
+MLLM/lmdeploy/.clang-format export-ignore
+MLLM/lmdeploy/.pre-commit-config.yaml export-ignore
+MLLM/lmdeploy/.pylintrc export-ignore
+MLLM/.pre-commit-config.yaml export-ignore
+MLLM/.isort.cfg export-ignore
+src/third_party/websocketpp/.travis.yml export-ignore
+/src/models/crimson/urdf/export.log export-ignore
+
+# Portable source and release documentation.
+/scripts/** text eol=lf
+/docs/*.md text eol=lf
+/.github/** text eol=lf
+/CITATION.cff text eol=lf
+/CONTRIBUTING.md text eol=lf
+/pyproject.toml text eol=lf
+/requirements*.txt text eol=lf
+
+# Maintained shell entry points must remain executable by Bash on Linux.
+/MLLM/install_lmdeploy.sh text eol=lf
+/src/trans_planner/scripts/run_experiment.sh text eol=lf
